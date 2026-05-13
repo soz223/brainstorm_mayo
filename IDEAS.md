@@ -10,6 +10,7 @@
 - [纵向 3D 医学影像 FM（主线方向 A）](ideas/longitudinal-3d-fm.md)
 - [Time-to-Event Pretraining 拆解（最强 baseline / 互补工作）](ideas/time-to-event-pretraining.md)
 - [三方向 landscape 调研（A / B / C 留白对比）](ideas/landscape-survey.md)
+- [Q/I/K 工业界副线（带批判性评估）](ideas/agent-reasoning-interp.md)
 
 ## 决策记录
 
