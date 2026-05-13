@@ -20,6 +20,20 @@
 
 > 第一个 natively 吃同一病人多张 3D CT/MRI 的 foundation model，用 **interval-aware masked volume modeling + next-volume prediction in latent space + cross-modal temporal contrast** 联合预训练，在治疗反应预测、复发预警、progression slope 估计上 beat Merlin / CT-CLIP / Stanford TTE。
 
+## 2.5 为什么 3D 而不是 2D？（reviewer 必问）
+
+2D 纵向**已成熟、Microsoft 主导**：BioViL-T (CVPR 2023)、MAIRA-2 (Microsoft 2024)、HERGen (MICCAI 2024)、MLRG (CVPR 2025) 占据 CXR 纵向；L-MAE / LongL-Net / 3DTINC 覆盖 fundus / OCT。
+
+3D 纵向**真空白**：lit review 显示无任何 FM-scale 多 timepoint 3D 医学影像 FM（SSL-AD 仅脑 / 小；CRONOS 非 FM；Stanford TTE 单 CT）。
+
+**3D 的 case：**
+1. Mayo 数据强项是 3D CT
+2. 临床价值更高（实际诊断/治疗决策依赖 3D）
+3. 论文影响力更大（更难，contribution 更厚）
+4. 同时间可借鉴 2D 方法（BioViL-T loss 设计、L-MAE time-aware mask 等）
+
+**2D 的反驳**：MIMIC-CXR 有 26,625 多 visit 病人，是 3D 总和的 5-10×。**如果 3D 数据真的卡死，2D OCT / fundus / 罕见模态**还是有缝隙的——保留作 plan B。
+
 ---
 
 ## 3. Specific Claims（按 reviewer 视角排）
