@@ -30,11 +30,22 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 
 ## 历史调研记录
 
+### Brainstorming rounds
 - [一轮 landscape (A/B/C)](ideas/landscape-survey.md)
 - [二轮 landscape (W/AA/CC/X/K)](ideas/landscape-survey-round2.md)
 - [Agent / Reasoning / Interp 副线](ideas/agent-reasoning-interp.md)
 - [Method 维度调研](ideas/methods-survey.md)
 - [Time-to-Event Pretraining 拆解](ideas/time-to-event-pretraining.md)
+
+### Direction A 深度
+- [纵向 3D 医学影像 FM 文献综述（~75 篇）](ideas/direction-a/lit-review.md)
+- [公开纵向医学影像数据集 inventory（~70 个）](ideas/direction-a/datasets.md)
+
+### Trend 分析（Stage 1–3）
+- [Stage 1A: ML 顶会 trending（~85 篇）](ideas/trends/stage1a-ml-venues.md)
+- [Stage 1B: 医学顶刊 trending（~95 篇）](ideas/trends/stage1b-medical-venues.md)
+- Stage 2: trend 分析（待）
+- Stage 3: trend-based new ideas（待）
 
 ## 数据 scoping 待办
 
