@@ -1,27 +1,48 @@
 # 研究 idea 索引
 
-> 主线：**纵向 3D 医学影像基础模型**——Mayo 数据 + 20×H200，做全社区唯一能做的事。
+> 主线：**纵向 3D 医学影像 FM**。详见 [longitudinal-3d-fm.md](ideas/longitudinal-3d-fm.md)
 
-## 核心一句话
-公开数据集没有 ≥3 timepoint × 3D × >10k 病人的纵向影像，所以全社区被卡在 pair-Siamese 的 local optimum；Mayo 有这块数据。**这不是小创新，是整片空地。**
+## 当前候选
 
-## 详细 idea 索引
+| 方向 | 状态 | Mayo 必需 | 详情 |
+|---|---|---|---|
+| **A** 纵向 3D FM | 主线 | ✅ | [longitudinal-3d-fm.md](ideas/longitudinal-3d-fm.md) |
+| **AA** Hallucination gate | 强候选 | ✅ draft+edited 配对 | [methods-survey.md](ideas/methods-survey.md#aa) |
+| **X** MedREALM joint retriever | 候选 | ✅ image-report 库 | [methods-survey.md](ideas/methods-survey.md#x) |
+| **CC** Radiogenomics FM | 待数据 | ✅ paired imaging+omics | [methods-survey.md](ideas/methods-survey.md#cc) |
+| **M8** Diffusion-as-FM | 候选 | optional | [methods-survey.md](ideas/methods-survey.md#m8) |
+| **K** SAE on 3D CT FM | Plan B | ❌ | [agent-reasoning-interp.md](ideas/agent-reasoning-interp.md) |
+| **W** CheckList medical FM | 温吞 | optional | [landscape-survey-round2.md](ideas/landscape-survey-round2.md#w) |
+| **M3** Memory Layer | 待评 | 中 | [methods-survey.md](ideas/methods-survey.md#m3) |
+| **M10** Self-improving | 待评 | ✅ unlabeled | [methods-survey.md](ideas/methods-survey.md#m10) |
 
-- [纵向 3D 医学影像 FM（主线方向 A）](ideas/longitudinal-3d-fm.md)
-- [Time-to-Event Pretraining 拆解（最强 baseline / 互补工作）](ideas/time-to-event-pretraining.md)
-- [一轮 landscape 调研（A / B / C 留白对比）](ideas/landscape-survey.md)
-- [Q/I/K 工业界副线（带批判性评估）](ideas/agent-reasoning-interp.md)
-- [二轮 landscape 调研（W / AA / CC / X 五新候选）](ideas/landscape-survey-round2.md)
+## 调研中
 
-## 决策记录
+M4 (speculative decoding) · M5 (TTT) · M9 (flow matching)
 
-| 日期 | 决策 | 理由 |
+## 已弃
+
+Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matching) · M1 (Mamba) · M2 (MoE) · M6 (V-JEPA) · M7 (3D tokenizer) · T (Eval methodology) · U (Open-vocab anomaly) · V (Pediatric) · Z (Active learning) · BB (Cross-lang) · Y (Efficient FM) · X 之前误判（已恢复）
+
+## 决策日志
+
+| 日期 | 决策 | 关键 |
 |---|---|---|
-| 2026-05-13 | 主攻 A（纵向 3D FM） | 三方向调研显示 A 留白 30–40%，B/C 仅 15–25%；Mayo 数据正好填 A 的核心缺口 |
+| 2026-05-13 | 主攻 A | 三方向调研 A 30-40% 留白；Mayo 纵向数据是社区独占缺口 |
+| 2026-05-13 | AA 升级为强候选 | FDA 驱动 + Mayo draft+edited 配对独占 |
+| 2026-05-13 | X 不是 RAG | REALM-style joint pretraining 整片空白 |
 
-## 下一步 backlog
-- [ ] Mayo 数据 scoping：≥3 次随访的 CT / MRI 病人数清单
-- [ ] 公开纵向数据 inventory（ADNI / UK Biobank / NLST / OASIS / TADPOLE / IXI）
-- [ ] 三种 pretraining objective 的 loss 写法草稿
-- [ ] 小规模 prototype（4 timepoints × 2k 病人 × 100M params）
-- [ ] reproduce Merlin / TTE / CT-CLIP 在自有数据上的数字作 baseline
+## 历史调研记录
+
+- [一轮 landscape (A/B/C)](ideas/landscape-survey.md)
+- [二轮 landscape (W/AA/CC/X/K)](ideas/landscape-survey-round2.md)
+- [Agent / Reasoning / Interp 副线](ideas/agent-reasoning-interp.md)
+- [Method 维度调研](ideas/methods-survey.md)
+- [Time-to-Event Pretraining 拆解](ideas/time-to-event-pretraining.md)
+
+## 数据 scoping 待办
+
+- [ ] Mayo ≥3 follow-up 3D 病人数？（决定 A 启动）
+- [ ] Mayo draft + radiologist-edited 配对语料量？（决定 AA 启动）
+- [ ] Mayo image-report 总量？（决定 X 启动）
+- [ ] Mayo paired imaging + sequencing ≥5k？（决定 CC go/no-go）
