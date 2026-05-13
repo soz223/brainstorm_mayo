@@ -147,6 +147,189 @@
 
 ---
 
-## Part 7B: 非-AD brain MRI cohorts (PPMI / ABCD / HCP / dHCP / HBCD / Cam-CAN / Rotterdam / OpenBHB)
+## Part 7B: 非-AD brain MRI cohorts
 
-⏳ subagent 调研中，回来更新。
+### PPMI (Parkinson's Progression Markers Initiative)
+- **病人数**: ~1,400 (PPMI 1.0, 2010-2018)；PPMI 2.0 目标 ~4,000+
+- **≥2 MRI TP**: ~700-800（PD+HC subset 5-yr follow-up）
+- **≥3 MRI TP**: ~300-500
+- **时间结构**: Baseline + 12/24/36/48 mo（每 12 mo MRI in PPMI 2.0）
+- **模态**: 3T, T1 MP-RAGE (1.2mm), 3D T2-FLAIR, DTI, rsfMRI, **NM-MT (neuromelanin)**
+- **配对**: **DaTSCAN**, DNA/RNA/CSF/血液, GBA/LRRK2/SNCA 基因, MDS-UPDRS, 嗅觉, 睡眠, neuropsych
+- **Access**: ppmi-info.org，DUA 1-2 周，免费
+- **License**: PPMI DUA（非商业，需 acknowledgment）
+- **引用**: Marek 2018 *Ann Clin Transl Neurol* doi:10.1002/acn3.644 · medRxiv 2024 doi:10.1101/2024.09.23.24313179 · https://www.ppmi-info.org/
+- **Caveats**: MRI 仅 sub-study；scanner 跨 ~50 site 异质；**DaTSCAN 比 MRI 更核心**
+
+---
+
+### ABCD Study
+- **病人数**: 11,868 baseline (age 9-10) — Release 6.1
+- **≥2 MRI TP**: ~7,800-9,000（2-yr follow-up 完成）
+- **≥3 MRI TP**: ~5,000-6,500（4-yr 完成，6-yr 部分）
+- **时间结构**: Baseline + bi-annual MRI 每 2 年（2y/4y/6y/8y/10y）；annual 行为
+- **模态**: 3T (Prisma/GE 750/Philips), T1 MPRAGE, T2, DTI multi-shell, rsfMRI, task-fMRI
+- **配对**: 基因型 (Smokescreen), 唾液 hormone, 头发 cortisol, NIH Toolbox, CBCL, K-SADS, 物质使用, 家庭/SES
+- **Access**: NDA, DUC 4-8 周，免费学术
+- **License**: NDA DUC, mandatory data contributions back
+- **引用**: Casey 2018 *Dev Cogn Neurosci* doi:10.1016/j.dcn.2018.03.001 · Hagler 2019 *NeuroImage* doi:10.1016/j.neuroimage.2019.116091
+- **Caveats**: scanner harmonization 难题；同 family siblings 需 mixed-effect
+
+---
+
+### HCP-Aging (HCP-A) / AABC
+- **病人数**: 1,396 (age 36-100+), AABC Release 2
+- **≥2 MRI TP**: **915 (V2)**
+- **≥3 MRI TP**: **471 (V3)**；≥4 TP: 96 (V4)
+- **时间结构**: V1 + 2-3 yr 间隔，最长 ~10 yr trajectory
+- **模态**: 3T Prisma, T1 MPRAGE 0.8mm, T2 SPACE, dMRI multi-shell, rfMRI, task-fMRI, ASL, hi-res hippocampal T2; 部分 7T MRS
+- **配对**: NIH Toolbox, Penn CNB, 血液 (Aβ, p-tau), 步态/握力, 听力, APOE
+- **Access**: ConnectomeDB + NDA，免费
+- **License**: WU-Minn HCP Open Access (restricted 部分需 RDUA)
+- **引用**: Bookheimer 2019 doi:10.1016/j.neuroimage.2018.10.009 · Harms 2018 doi:10.1016/j.neuroimage.2018.06.073
+- **Caveats**: 原 cross-sectional，longitudinal 后加；不均衡 follow-up rate
+
+---
+
+### HCP-Development (HCP-D)
+- **病人数**: 1,350 (age 5-21)
+- **≥2 MRI TP**: ~300-650
+- **≥3 MRI TP**: ~100-200（仅部分老年龄段）
+- **时间结构**: 横断为主，5-21y subset burst design (baseline + ~2 yr 复扫)
+- **模态**: 3T Prisma, T1 0.8mm, T2, dMRI multi-shell, rfMRI, task-fMRI, ASL
+- **配对**: NIH Toolbox, Pubertal Development Scale, 唾液 hormones
+- **Access**: NDA/ConnectomeDB，免费
+- **License**: HCP Open Access
+- **引用**: Somerville 2018 doi:10.1016/j.neuroimage.2018.08.050
+- **Caveats**: longitudinal 不如 HCP-A 完整；puberty 异质性大
+
+---
+
+### dHCP (Developing Human Connectome)
+- **病人数**: ~887 neonatal (783 unique) + 297 fetal (273 subjects)
+- **≥2 MRI TP**: ~100 neonates（preterm 复扫）
+- **≥3 MRI TP**: 极少 (<20)
+- **时间结构**: 胎儿 20-40 PMA wks 单扫；新生儿 ~40 PMA wks 单扫；preterm 出生时 + term-equivalent 二扫
+- **模态**: 3T Philips Achieva, 定制 32-ch neonatal coil, T2w 0.5mm, T1w, 多壳 dMRI (300+ dir), rsfMRI
+- **配对**: 母亲健康问卷, 围产期临床, Bayley/Q-CHAT 18-mo neurodev, genetic subset
+- **Access**: developingconnectome.org，DUA 几天-1 周
+- **License**: **CC BY-NC-SA**
+- **引用**: Edwards 2022 doi:10.3389/fnins.2022.886772 · Makropoulos 2018
+- **Caveats**: 主要单次扫描设计；motion artifact 严重
+
+---
+
+### HBCD (HEALthy Brain & Child Development)
+- **病人数**: >5,000 families；Release 2.0 含 ~3,500 婴儿
+- **≥2 MRI TP**: ~1,500-2,000
+- **≥3 MRI TP**: ~500-1,000（逐年增加）
+- **时间结构**: V1 prenatal (非 MR) → V2 (0-1mo) → V3 (3-9mo) → V4 (9-15mo) → V6 later
+- **模态**: 3T Siemens XA30 harmonized, 婴儿睡眠态 T1/T2, dMRI multi-shell, rfMRI, task-fMRI; MRS; EEG
+- **配对**: **产前药物/物质暴露 (opioid 重点)**, 母乳/血液样本, Bayley, 母心理健康
+- **Access**: NDA + DUC，免费，每年 release
+- **License**: NDA DUC (HEAL Initiative open science)
+- **引用**: Volkow 2021 doi:10.1016/j.dcn.2020.100876 · Dean 2024 doi:10.1016/j.dcn.2024.101452
+- **Caveats**: 婴儿睡眠扫描成功率 ~70%；prenatal 暴露 enrichment 影响 generalizability
+
+---
+
+### Cam-CAN
+- **病人数**: Stage 2 = 700 (age 18-87); Stage 3 = 280
+- **≥2 MRI TP**: **0**（主要 cross-sectional）；Cam-CAN 2 子集 ~200 重扫但数据释放有限
+- **≥3 MRI TP**: ~0
+- **时间结构**: **横断**为主，一次 MRI + MEG + 行为
+- **模态**: 3T Tim Trio, T1 MPRAGE, T2 SPACE, DWI, rfMRI, task-fMRI; **MEG (Elekta 306-ch)**
+- **配对**: 广泛认知 battery, MEG, 健康/生活方式
+- **Access**: camcan-archive.mrc-cbu.cam.ac.uk，DUA 2-4 周
+- **License**: Cam-CAN Data License (非商业)
+- **引用**: Shafto 2014 *BMC Neurol* doi:10.1186/s12883-014-0204-1
+- **Caveats**: **几乎纯横断**——不适合 longitudinal；常用做 brain age 训练
+
+---
+
+### Rotterdam Scan Study
+- **病人数**: 5,286 unique with MRI (2005-2016)；最新 ~6,000+ (RS-I/II/III)
+- **≥2 MRI TP**: **~3,400**（10,755 scans / 5,286 subjects ≈ 2 avg）
+- **≥3 MRI TP**: ~1,500-2,000
+- **时间结构**: 从 2005 起整合 MRI；每 3-4 yr 一次，最多 4 wave
+- **模态**: **1.5T GE Signa Excite (HDxt)**, T1 3D FSPGR, PD, FLAIR, 2D DTI (25 dir), 部分 rfMRI, SWI
+- **配对**: 心血管/代谢临床, 全基因组芯片, MMSE/15WLT, **痴呆诊断终点**, APOE
+- **Access**: Erasmus MC (rs@erasmusmc.nl)，**需合作者**，非完全开放
+- **License**: 协作型，**非公开下载**，PI 协议
+- **引用**: Ikram 2015 *Eur J Epidemiol* doi:10.1007/s10654-015-0105-7 · Vinke 2018 doi:10.1016/j.neurobiolaging.2018.07.001
+- **Caveats**: **1.5T 老协议**；access 比 ADNI/PPMI 难得多；荷兰白人为主
+
+---
+
+### OpenBHB (Open Big Healthy Brains)
+- **病人数**: **5,330 unique T1 MRI scans**（all HC, age 6-88, 71 sites, 10 源数据集: IXI/ABIDE 1+2/CoRR/GSP/Localizer/MPI-Leipzig/NAR/NPC/RBP）
+- **≥2 MRI TP**: ~几百（CoRR test-retest；多数底层 cross-sec）
+- **≥3 MRI TP**: ~几十（限 CoRR）
+- **时间结构**: 聚合 **cross-sectional**；无统一纵向
+- **模态**: 3T 为主（混 1.5T），**T1 only**（已 preprocess: VBM-quasi-raw + CAT12 + FreeSurfer）
+- **配对**: **仅 age/sex/site**；无认知/基因
+- **Access**: IEEE DataPort 免费下载，**无审批**
+- **License**: 各源数据集 license 继承（CC BY / CC BY-NC 混合）
+- **引用**: Dufumier 2022 *NeuroImage* doi:10.1016/j.neuroimage.2022.119637
+- **Caveats**: **不是 longitudinal**——为 brain age + site debiasing 设计
+
+---
+
+### Part 7B 决策表
+
+| Cohort | ≥2 MRI TP | ≥3 MRI TP | 真 longi? | Access 难度 |
+|---|---|---|---|---|
+| **ABCD** | 7,800-9,000 | 5,000-6,500 | ✅ 真 | NDA 4-8 周 |
+| **Rotterdam** | ~3,400 | 1,500-2,000 | ✅ 真（1.5T 老）| 难（需合作）|
+| **HBCD** | 1,500-2,000 | 500-1,000 | ✅ 真（婴儿）| NDA |
+| **HCP-A/AABC** | 915 | 471 | ✅ 真 | ConnectomeDB |
+| **PPMI** | 700-800 | 300-500 | ✅ 真 (PD) | 1-2 周 |
+| **HCP-D** | 300-650 | 100-200 | partial | NDA |
+| **dHCP** | ~100 | <20 | partial | 几天 |
+| **OpenBHB** | ~几百 | ~几十 | ❌ cross-sec | **直接下载** |
+| **Cam-CAN** | 0 | 0 | ❌ 横断 | DUA |
+
+---
+
+## Part 7 终极汇总（含 7A + 7B + ADNI/OASIS）
+
+### 真 longitudinal brain MRI (按 ≥3 TP 病人数排)
+
+| Cohort | ≥3 TP | 适合用途 |
+|---|---|---|
+| **ABCD** | 5,000-6,500 | 青少年发育（不能直接给老年 FM 用，但可作 pretraining）|
+| **NACC-SCAN** | 2,000-3,000 | 多 ADRC pool，UDS clinical |
+| **Rotterdam** | 1,500-2,000 | population-based 老化（1.5T 限）|
+| **TADPOLE D1** | ~1,300 | features only, prediction benchmark |
+| **ADNI 累计** | 1,300-1,700 | AD/MCI 金标准 |
+| **HBCD** | 500-1,000 | 婴儿，0-10 yr 设计中 |
+| **HCP-A/AABC** | 471 | 健康老化 36-100+，**高质量 3T** |
+| **OASIS-3** | ~400 | 30-yr Knight ADRC |
+| **AIBL** | ~350 | Australian AD |
+| **PPMI** | 300-500 | Parkinson's |
+| **DIAN** | ~280 | 显性 AD（独特，但难 access）|
+| **GENFI** | ~280 | 遗传 FTD |
+| **HABS** | ~180 | preclinical AD |
+| **NIFD** | ~130 | 散发 FTD |
+| **MIRIAD** | ~67 | 极密集 9 TP 但小 + 1.5T only |
+| **4RTNI** | ~80 | PSP/CBD |
+
+### 给 Direction A 的最终数据策略
+
+**核心 pretraining 池**（按 ≥3 TP 病人累加）：
+- ADNI 1+GO+2+3 + OASIS-3 + AIBL + NACC-SCAN = **~5,000+ patients ≥3 TP** (AD-aging 路线)
+- 加 ABCD = **+5,000-6,500 (青少年发育，但配对 AD 数据集时要分组评测)**
+- 加 Rotterdam（如能合作）= **+1,500-2,000**
+- 加 HCP-A、PPMI、HBCD = **+700-2,000**
+- 加 GENFI/NIFD = **+400 (FTD diversity)**
+
+**理论上限 ≥3 TP brain MRI**: **~10,000-15,000 unique patients**（如 NDA + LONI + 合作全部拿到）
+
+**对比**：BrainIAC 用 48,965 scans（多源混 ADNI/ABCD/OASIS）→ **scan 数 ≈ 70,000-100,000**（如全 access）
+
+**不能直接用的**:
+- Cam-CAN, OpenBHB, dHCP, HCP-D = cross-sec 或 longi 极少
+
+**最快可启动**:
+- ADNI + AIBL + NIFD（LONI 一站）+ OASIS-3（WUSTL portal）= 几周内拿到
+- 加 NACC-SCAN（~3 days）+ OpenBHB（直接下载）= 1 个月内拿到大半数据
