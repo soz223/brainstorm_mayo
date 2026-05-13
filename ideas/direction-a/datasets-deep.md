@@ -3,7 +3,7 @@
 > 由 3 个 subagent 并行调研，每个数据集附 link + 引用证据 + 精确数字。
 > 调研日期: 2026-05-13。
 >
-> **状态**: Parts 1/2/4/5/6/7 完成（含 ADNI/OASIS 详 + 其他 brain MRI longi）；Part 3 多模态 CT 语料待回填。Part 1 数字由替换 agent 独立验证一致。
+> **状态**: 全部 7 个 Parts 完成（含 ADNI/OASIS 详 + 其他 brain MRI longi）。Part 1 + Part 3 数字由独立替换 agent 交叉验证。**⚠️ CT-RATE 的 "多 volume 含义" 两个 agent 结论矛盾**（重建 vs 不同 timepoint），需 HF 原页面确认。
 
 ---
 
@@ -550,6 +550,8 @@
 - 命名: `split_patientID_scanID_reconstructionID`
 - 25,692 / 21,304 ≈ 1.21 volumes/patient，是**重建数不是时间点数**
 - **结论：CT-RATE 不能用于纵向预训练**，只能 single-timepoint VLM
+
+⚠️ **交叉验证矛盾（2026-05-13）**：替换 agent 解读不同——认为 `patient_X_a/b/c_R` 中 `a/b/c` 表 scan letter（**不同 timepoint**），`R` 是 reconstruction。该解读下 ~3,500-4,400 patients 有 ≥2 scan。**必须从 HF 原 dataset card / paper 一手确认**——决定 CT-RATE 是否能加进 Direction A 预训练池。建议直接验证：`huggingface.co/datasets/ibrahimhamamci/CT-RATE` 的 "Dataset Structure" 章节 + 原 paper section 描述 ID 命名。
 
 **配对数据**
 - **完整 radiology reports**（土耳其原文 + GPT 翻译英文，impression + findings）
