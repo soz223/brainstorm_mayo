@@ -9,7 +9,156 @@
 
 ## Part 1: 肺部筛查纵向 CT 数据集
 
-⏳ subagent 调研中，回来更新。
+### 1.1 NLST (National Lung Screening Trial) ⭐⭐⭐⭐⭐
+
+**基本信息**
+- 主结果论文: NLST Research Team, *NEJM* 2011;365:395-409, DOI: [10.1056/NEJMoa1102873](https://doi.org/10.1056/NEJMoa1102873)
+- 设计: Aberle DR et al., *Radiology* 2011;258:243-253, [10.1148/radiol.10091808](https://doi.org/10.1148/radiol.10091808)
+- 入口: [CDAS](https://cdas.cancer.gov/nlst/) / [TCIA](https://www.cancerimagingarchive.net/collection/nlst/) / IDC
+
+**规模（一手引用）**
+- 入组: **53,454**（NEJM 主论文），LDCT 26,722 / CXR 26,732
+- TCIA 上 LDCT 影像可访问的: **26,254 病人**（TCIA metadata）
+- 影像规模: **21,082,265 DICOM images / 73,116 studies / 203,099 series**
+- timepoint 结构: T0 / T1 / T2 年度 3 轮
+- adherence: T0 95.0%、T1 94.8%、T2 94.8%（NEJM）
+- **≥2 CT TP: ~23,600-25,000**（adherence 推算）
+- **≥3 CT TP: ~22,800**（0.95³ × 26,722，NLST Table 1 显示 75% 完成全 3 轮）
+
+**协议**: ≥4 detector rows; tube current-time ≤40 mAs (avg-size); effective dose ~1.5 mSv; slice thickness 1.0–2.5 mm 因 scanner 异构
+
+**配对**: demographics + 吸烟史; CT abnormalities ~177,500 records; 肺癌 dx ~2,100; cause of death ~15,200; **extended mortality FU 12.3 年 median** (Black 2019)
+
+**Access**: **影像 CC BY 4.0 公开 (TCIA 11.92 TB)**；临床全集 CDAS DTUA 2-8 周
+
+**已用**: Ardila 2019 Nat Med (Google 3D CNN); **Sybil** (Mikhael JCO 2023, 必 beat); Liao 2019 DSB17; NLSTseg 2025 Sci Data (pixel-level subset)
+
+---
+
+### 1.2 NELSON (Dutch-Belgian)
+
+**基本信息**
+- de Koning HJ et al., *NEJM* 2020;382:503-513, [10.1056/NEJMoa1911793](https://doi.org/10.1056/NEJMoa1911793)
+- Horeweg N et al., *Eur Respir J* 2013 三轮结果
+- 无统一公开 portal
+
+**规模**
+- 入组: **15,792**（男 13,195 + 女 2,594）
+- 有 CT: ~7,900（影像不公开发布）
+- CT 总数: ~28,000-30,000 (4 轮)
+- timepoint: T0/T1/T2 (year 1)/T3 (year 5.5) —— **递增间隔**
+- adherence: 95.4%/96.6%/92.7% (前 3 轮)
+- **≥2 TP: ~6,200，≥3 TP: ~5,800**
+
+**协议**: 16-detector spiral; 120/140 kVp body-weight adaptive; 30 mAs (<50kg) 渐进至 140 mAs; **slice 1.0 mm / 0.7 mm increment**; **剂量 0.8-1.0 mSv (低于 NLST)**; **volume-based 评估**（不同于 NLST diameter-based）
+
+**Access**: ⚠️ **几乎不可获取**——需联系 NELSON PI (de Koning / de Jong / Oudkerk) + 双 IRB + DTA，月级别审批，**很少授予外部 group**
+
+**Caveats**: 数据分散多中心无统一 DICOM repo；volume-based vs Lung-RADS 不兼容；男性 83%。**别在 proposal 里依赖它**；引用 NEJM 数字做对照即可。
+
+---
+
+### 1.3 COPDGene
+
+**基本信息**
+- Regan EA et al., *COPD* 2010;7:32-43, [10.3109/15412550903499522](https://doi.org/10.3109/15412550903499522)
+- [copdgene.org](https://copdgene.org/) / dbGaP **phs000179** / TOPMed phs000951
+
+**规模**
+- 入组 Phase 1: **10,198 current/former smokers** (2007.11–2012.7) + non-smoker ctrl → **总 10,718-10,720**
+- 有 CT: ~10,300 (baseline)
+- CT 总数: **>40,000 chest CT (Phase 3 进行中)**（COPDGene 官网）
+- 每 visit = **inspiratory + expiratory** 2 个 CT
+- Phase 2 retention: **5,929 returning** (~58%, ~14% 死亡 by P2)
+- **≥2 CT TP: ~5,900；Phase 3 进行中，目标 ≥3 TP ~5,000**
+
+**协议**: 多 vendor 标准化；**120 kVp**; inspiratory 200 mAs / expiratory 50 mAs; **slice 0.625-0.9 mm, 0.5 mm interval**; sharp + standard 双 kernel; 单次 ~7 mSv (insp+exp 合计)
+
+**配对**: spirometry pre+post BD, 6MWT, SGRQ, mMRC, CAT; **GWAS phs000179**, TOPMed **WGS phs000951**; blood biomarkers (CRP, SP-D, CC16); ILA 进展; lung cancer incident
+
+**Access**: dbGaP DAR via eRA Commons + IRB + NHLBI DAC，3 周-3 月，**免费**；ancillary collaboration 更快
+
+**已用**: Humphries SM et al. *Radiology* 2022（emphysema DL 预测 mortality）; González G et al. AJRCCM 2018; Castaldi (COPD subtype clustering); Bodduluri (airway DL)
+
+---
+
+### 1.4 SPIROMICS
+
+**基本信息**
+- Couper D et al., *Thorax* 2014;69:491-494, [10.1136/thoraxjnl-2013-203897](https://doi.org/10.1136/thoraxjnl-2013-203897)
+- QCT 协议: Sieren JP et al., *AJRCCM* 2016;194:794-806（精确扫描参数）
+- [spiromics.org](https://www.spiromics.org/) / [BioLINCC](https://biolincc.nhlbi.nih.gov/studies/spiromics/) / dbGaP phs001119
+
+**规模**
+- 入组: **2,982** 跨 12 个中心
+- CT: 每人 baseline + 3 annual FU × (TLC + RV) = 最多 8 CT；总 ~15,000-20,000
+- **≥2 CT TP: ~2,200，≥3 TP: ~1,500**（估）
+
+**协议（Sieren 2016 AJRCCM 精确）**: 120 kVp; TLC 80-270 mAs (BMI-adaptive, CTDIvol 6.1-11.4 mGy); RV 50-145 mAs (CTDIvol 4.2-6.1 mGy); **slice Siemens 0.75 / GE 0.625 / Philips 0.67 mm**; emphysema 阈值 **-950 HU**; air trapping **-856 HU**
+
+**配对**: 4 strata (never/smokers-no-COPD/mild-mod COPD/severe); spirometry; **深度 fluid biomarker** (IL-6, fibrinogen, CC16, SP-D...) — 比 COPDGene fluid panel 更深; sputum/BAL; adjudicated exacerbations
+
+**Access**: ancillary application to SPIROMICS Steering Committee + BioLINCC + dbGaP DAR
+
+---
+
+### 1.5 MESA-Lung
+
+**基本信息**
+- Hoffman EA, Barr RG 系列；Lederer DJ et al., *AJRCCM* 2009;180:407
+- [mesa-nhlbi.org](https://www.mesa-nhlbi.org/) / [BioLINCC](https://biolincc.nhlbi.nih.gov/studies/mesa/) / dbGaP phs000209, phs001416
+
+**规模**
+- Parent MESA: **6,814** (2000-2002 入组 45-84 yo, 4 race/ethnic groups)
+- **Exam 1 (2000-02) cardiac CT**: 全员 6,814 (含部分肺野)
+- **Exam 3/4 (2004-06) MESA Lung subset**: **3,965**
+- **Exam 5 (2010-12) full-lung CT**: **3,205**
+- **Exam 6 (2017-18) full-lung CT**: **>2,600**
+- **≥2 CT TP: 3,205；≥3 TP: >2,600**
+
+**协议**:
+- Exam 1: **EBCT/MDCT cardiac**（限 heart 区，~3cm 肺野 visible，emphysema 阈值 **-910 HU**）
+- Exam 5/6: **full-lung CT** (120 kVp ≤180 mAs ~0.625 mm, TLC inspiration only, **-950 HU**)
+
+**特色**: **17 年 CT 纵向跨度**（2000→2018），CVD events + COPD events + mortality + lung function decline 多 outcome
+
+**Access**: BioLINCC 免费注册 + DUC；ancillary 需 MESA Pubs Committee 批准
+
+**Caveats**:
+- baseline 是 cardiac CT 部分肺野，与 Exam 5/6 full-lung CT 字段不一致 → harmonization 必做
+- 主要是 CVD cohort，肺癌 outcome 少
+- 60% never-smoker → COPD power 小但泛化好
+
+---
+
+### 1.6 PLCO ⚠️ 注意：是 CXR 不是 CT
+
+**基本信息**: Oken MM et al., *JAMA* 2011;306:1865, [10.1001/jama.2011.1591](https://doi.org/10.1001/jama.2011.1591)
+
+**规模**: 入组 **154,901**（intervention 77,445）；4 个年度 **PA chest X-rays** (T0-T3) + 长 FU；T0 adherence 86.6%, T3 78.8%；events through 2009.12 (median 13 yr)
+
+**对 Direction A 的实际相关性**: ❌ **不适合 CT 项目**（PLCO 用 CXR 筛查肺癌，不是 CT）。但保留它的 **PLCOm2012 risk score** 作 external validation。
+
+---
+
+### Part 1 汇总 Table
+
+| 数据集 | 入组 N | 有 CT | CT 总数 | TP | 间隔 | 可访问性 | 推荐 |
+|---|---|---|---|---|---|---|---|
+| **NLST** ⭐⭐⭐⭐⭐ | 53,454 | 26,254 | 73k studies / 21M images | 3 | 12 月 | **CC-BY 4.0 公开** | 必用 |
+| **NELSON** ❌ | 15,792 | ~7,900 | ~30k | 4 (T0/T1/T2/T3.5y) | 递增 | **非公开** | 别依赖 |
+| **COPDGene** | 10,300 | ~10,300 | >40k (insp+exp) | 3 phases | ~5 yr | dbGaP DAR | 强候选 |
+| **SPIROMICS** | 2,982 | ~2,982 | ~15-20k | 4 (baseline+3y) | 12 月 | BioLINCC + ancillary | COPD 专用 |
+| **MESA-Lung** | 6,814 | 3,965 lung subset | ~15k+ | 2-4 (Ex 1/3-4/5/6) | 5-10 yr | **BioLINCC 免费** | **17 yr 跨度** |
+| **PLCO** ⚠️ | 154,901 | **0 CT (CXR only)** | 0 | N/A | N/A | CDAS | **不用** |
+
+### Part 1 关键 takeaway
+
+1. **首选起点：NLST**——唯一开放（CC-BY）、26k × 3 TP × 73k studies。但**时间跨度只有 2 年**，慢病进展信号弱
+2. **想要更长 5-17 年跨度**：**MESA-Lung（17 yr）→ COPDGene（10 yr）→ SPIROMICS（3-4 yr）**。注意 MESA-Lung Exam 1 是 cardiac CT（部分肺野），与 Exam 5/6 full-lung 协议不一致
+3. **NELSON 别依赖**——基本不可获取
+4. **PLCO 不要放进 CT 池**（CXR only），只保留它的 mortality score
+5. **跨集 harmonization 必做**：slice (1.0-2.5 vs 1.0 vs 0.625-0.9 mm)、kernel (sharp/standard)、dose (NELSON 0.8 / NLST 1.5 / COPDGene 7 mSv)，且 NELSON 用 volume-based nodule semantics 不能与 Lung-RADS 直接比
 
 ---
 
