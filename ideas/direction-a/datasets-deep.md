@@ -551,7 +551,26 @@
 - 25,692 / 21,304 ≈ 1.21 volumes/patient，是**重建数不是时间点数**
 - **结论：CT-RATE 不能用于纵向预训练**，只能 single-timepoint VLM
 
-⚠️ **交叉验证矛盾（2026-05-13）**：替换 agent 解读不同——认为 `patient_X_a/b/c_R` 中 `a/b/c` 表 scan letter（**不同 timepoint**），`R` 是 reconstruction。该解读下 ~3,500-4,400 patients 有 ≥2 scan。**必须从 HF 原 dataset card / paper 一手确认**——决定 CT-RATE 是否能加进 Direction A 预训练池。建议直接验证：`huggingface.co/datasets/ibrahimhamamci/CT-RATE` 的 "Dataset Structure" 章节 + 原 paper section 描述 ID 命名。
+✅ **冲突已解决（2026-05-13 verification agent 一手查证）**：
+
+**HuggingFace dataset card 原文**："Our folders are structured as `split_patientID_scanID_reconstructionID`. For instance, 'valid_53_a_1' indicates that this is a CT volume from the validation set, **scan 'a' from patient 53**, and reconstruction 1 of scan 'a'."
+
+**CT-CLIP repo `scripts/data.py`**：目录结构 `patient_folder / accession_folder / *.nii.gz`。中间层变量名 `accession_folder` 确认每个 letter = 一个 accession（PACS 系统里一次独立的 exam order）。
+
+**结论**：
+- 21,304 → 25,692（差 4,388）= 多 **accession per patient**（独立 exam，**可能是不同 timepoint**）
+- 25,692 → 50,188（×1.95）= **reconstruction 扩展**（同一 scan 不同 kernel/slice）
+- **真实可用**: **~3,000-4,400 patients 有 ≥2 distinct accessions**
+
+**关键 caveat（两个 agent 都漏的）**：
+- ⚠️ CT-RATE 公开 release **没有 StudyDate / ScanDate 元数据** → 即使是不同 accession，**interval 未知**（可能几分钟到几年）
+- ⚠️ CT-CLIP 原作者把每个 volume 当 i.i.d. 处理，没定义 longitudinal 目标
+- ⚠️ 想要 Δt-aware → 必须邮件 author 申请 scan-date 元数据
+
+**对 Direction A 的实际价值**：
+- ✅ 能加 ~4k patient "same-patient contrastive learning" 作 Δt-free 预训练
+- ❌ 不能直接做 interval-aware MVM / Δt-scaled attention（除非拿到 timestamps）
+- 综合：**可用作 Direction A 弱 augment，不算主力**
 
 **配对数据**
 - **完整 radiology reports**（土耳其原文 + GPT 翻译英文，impression + findings）
