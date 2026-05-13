@@ -6,12 +6,12 @@
 
 | Method | 状态 | 信号 | Mayo 杠杆 |
 |---|---|---|---|
-| **M3** Memory Layer | 待评 | ★★★ | 中 |
+| ~~**M3** Memory Layer~~ | 弃（33 cite 信号 + 反 scaling）| - | - |
 | **M4** Speculative decoding | 弃（engineering）| ★（绑定才有戏）| 弱 |
 | **M5** Test-time training | 候选 | ★★★ | optional |
-| **M8** Diffusion-as-FM | 候选 | ★★★ | optional |
+| **M8** Diffusion-as-FM | 已 log（参考用）| ★★ | optional |
 | **M9** Flow matching | 谨慎 | ★★（reviewer barrier 高） | optional |
-| **M10** Self-improving | 待评 | ★★★ | ★★★ |
+| ~~**M10** Self-improving~~ | 弃（医学无 verifier）| - | - |
 
 调研完毕的方向回到 [IDEAS.md](../IDEAS.md) 主索引。
 
@@ -97,7 +97,10 @@
 
 **风险**：技术 2024.12 才出，引用 base 小，1 年后可能"也就那样"
 
-**状态**：未调研留白，未确定是否值得追
+**状态**：**弃**（2026-05-13）。决策理由：
+1. 反 scaling law 时代叙事（参数多但 compute 不增）
+2. 出来 1 年只 33 cite —— 真好东西半年内引用爆炸
+3. 在 transformer 上再叠 sparse routing 增加故障点
 
 ---
 
@@ -151,7 +154,10 @@
 
 **风险**：bias amplification（系统错误强化）
 
-**状态**：未调研留白
+**状态**：**弃**（2026-05-13）。决策理由：
+- 医学诊断**无客观 verifier**（不像围棋 / 数学 / 代码可机器判）
+- pseudo-label 来自 FM 自己 → 系统错误自我强化
+- 唯一可救：锁定有 verifier 的窄子任务（如 seg with TotalSegmentator 对照），但 paper 就缩成小 contribution
 
 ---
 

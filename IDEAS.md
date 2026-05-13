@@ -14,13 +14,11 @@
 | **K** SAE on 3D CT FM | Plan B | ❌ | [agent-reasoning-interp.md](ideas/agent-reasoning-interp.md) |
 | **W** CheckList medical FM | 温吞 | optional | [landscape-survey-round2.md](ideas/landscape-survey-round2.md#w) |
 | **M5** TTT on 3D radiology FM | 候选 | optional | [methods-survey.md](ideas/methods-survey.md#m5) |
-| **M3** Memory Layer | 待评 | 中 | [methods-survey.md](ideas/methods-survey.md#m3) |
-| **M10** Self-improving | 待评 | ✅ unlabeled | [methods-survey.md](ideas/methods-survey.md#m10) |
 | **M9** Flow matching | 谨慎（barrier 高）| optional | [methods-survey.md](ideas/methods-survey.md#m9) |
 
 ## 已弃
 
-Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matching) · M1 (Mamba) · M2 (MoE) · M4 (Speculative, 看作 engineering) · M6 (V-JEPA) · M7 (3D tokenizer) · T (Eval methodology, 别人在做) · U (Open-vocab anomaly) · V (Pediatric) · Z (Active learning) · BB (Cross-lang) · Y (Efficient FM)
+Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matching) · M1 (Mamba) · M2 (MoE) · M3 (Memory Layer, 反 scaling 33cite) · M4 (Speculative, 看作 engineering) · M6 (V-JEPA) · M7 (3D tokenizer) · M10 (Self-improving, 医学无 verifier) · T (Eval methodology, 别人在做) · U (Open-vocab anomaly) · V (Pediatric) · Z (Active learning) · BB (Cross-lang) · Y (Efficient FM)
 
 ## 决策日志
 
