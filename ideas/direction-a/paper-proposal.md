@@ -60,6 +60,61 @@
 
 ---
 
+## 3.5 任务到底干啥？(input / output 具体)
+
+### 预训练（self-supervised，无 label）
+
+| 目标 | 输入 | 输出 | 任务类型 |
+|---|---|---|---|
+| **IA-MVM** | `[V1, V2, mask(V3), V4, V5]` + Δt | 重建 V3 voxels | inpainting / 生成 |
+| **NVP-LS** | `[V1...V_{k-1}]` + Δt | predicted latent for V_k | latent-space regression |
+| **CMTC** | (volume sequence, report/EHR window) | InfoNCE similarity | contrastive (embedding) |
+
+预训练阶段没 label。
+
+### 下游（**paper 卖点 = 一个 checkpoint，多种 task 都赢**）
+
+7 种任务类型：
+
+1. **疾病进展预测**（分类/survival）
+   - in: `[CT_t1, CT_t2, CT_t3]` → out: `P(MCI→AD within 2yr)`
+   - eval: ADNI / TADPOLE
+
+2. **治疗反应 RECIST**（分类/回归）
+   - in: `[pre-CT, post-CT]` + treatment → out: `{CR, PR, SD, PD}` or `% change`
+   - eval: ACRIN-6668 / ISPY1/2 / LUMIERE
+
+3. **复发 / 生存预测**（survival）
+   - in: `[post-tx CT_t1...t_k]` → out: hazard / time-to-recurrence
+   - eval: INSPECT / Yale-Brain-Mets / HECKTOR
+
+4. **Progression slope estimation**（回归）
+   - in: `[V1, V2, V3]` + Δt → out: 萎缩率 / 生长率
+
+5. **纵向报告生成**（text generation）
+   - in: `[prior CT, prior report, current CT]` → out: comparison report
+   - eval: CT-RATE / MIMIC-CXR longi（参考 MAIRA-2）
+
+6. **长时风险预测**（多 label 分类 / survival）
+   - in: `[CT_t1, CT_t2]` + EHR_window → out: `P(disease_i within 5yr)` × i
+   - eval: Merlin 的 752 tasks 用序列输入版
+
+7. **Next-volume forecasting**（image generation）
+   - in: `[V1, V2, V3]` + target Δt → out: predicted V_{t+Δt}
+   - eval: CRONOS / SADM / TFM / BrLP fair compare
+
+8. **(可选) Segmentation w/ prior**（dense prediction）
+   - in: current CT + prior CT → out: per-voxel labels
+   - 这是 FM feature 接 head，不是核心 contribution
+
+### 一句话定位
+
+> Core = "given a patient's history of 3D scans, predict their future" —— future = 疾病 / 治疗反应 / 复发 / 影像本身。
+
+任务覆盖：**classification + regression + survival + generation + (可选 seg)**。FM 论文卖点是同一 pretrained checkpoint 在多种下游都 beat single-timepoint baseline。
+
+---
+
 ## 4. 方法
 
 ### 4.1 Architecture
