@@ -755,3 +755,52 @@ CHILD = Canadian Healthy Infant Longitudinal Development —— **没有系统 M
 | paper 影响力 | 中（增量）| 高（首次）|
 
 **结论**：2D 数据更多更易，但被 Microsoft / Stanford 占；3D 数据稀缺但**整片空白**。Direction A 维持 3D 主线，但 paper 可考虑 2D 作 "demonstrating method also works on 2D" 的 robustness 章节。
+
+---
+
+## Part 6: ADNI / OASIS / TADPOLE 深度调研
+
+> 805 行独立文件 → [datasets-adni-oasis.md](datasets-adni-oasis.md)
+
+**关键 finding（澄清几个常被搞错的数字）：**
+
+| 数据集 | 病人数（一手） | MR sessions | ≥3 TP 估算 |
+|---|---|---|---|
+| **ADNI 1** | 819 | ~4-5k T1 | ~600-700 |
+| **ADNI GO** | 131 EMCI | bridge | ~70% |
+| **ADNI 2** | 790 | ~5k+ | ~500-600 |
+| **ADNI 3** | 692 active | ~8k+ | ~300（CN 双年访视）|
+| **ADNI 4** | 50 (2024-04) → ~200-500 估 2026 | early | TBD |
+| **ADNI 累计** | **2,482** | **17,141 T1** | **~1,300-1,700** |
+| **OASIS-1** | 416 (cross-sec) | 434 | 0 |
+| **OASIS-2** | 150 | 373 | ~50% |
+| **OASIS-3** | **1,378** | **2,842** + 2,608 PET (含 451 tau) + 1,472 CT | ~30% |
+| **OASIS-4** | 663 | 676（**cross-sec 临床**，不是 longi）| 0 |
+| **TADPOLE D1** | **1,667** (CN 508/MCI 841/AD 318) | features only | 8.3 visits avg, ≥3 TP ~80% = ~1,300 |
+
+**澄清 / 修正：**
+
+1. **OASIS-3 vs OASIS-4 关键区别**（很多人混）：OASIS-4 **不是** OASIS-3 续集。OASIS-3 是 longitudinal 研究 cohort (1,378 人，30 年 Knight ADRC)，OASIS-4 是 cross-sectional 临床 memory-clinic referrals (663 人，包含 non-AD dementia 用于鉴别 dx)
+
+2. **TADPOLE "1737" 错误**：用户记忆是 visit-rows，真实 unique subject = **1,667**（Marinescu 2020 Table 1）。平均 8.3 ± 4.5 visits/人，总 visit-rows ≈ 13,800
+
+3. **ADNI 累计 ~2,482 人**（Aisen 2024 ADNI Clinical Core Table 1, PMC11485391）——不是常传的 >3,000
+
+4. **ADNI 累计 T1 = 17,141 series**（Jack 2024 PMC11485416, as 2024-04-25）
+
+5. **ADNI4 进度**：2024-04 仅 35-50 in-clinic + 654 digital。2025-2026 公开数字缺失（需登 LONI 查 enrollment dashboard）
+
+**给 Direction A 的实操建议**：
+- 主预训练 corpus：ADNI 1+GO+2+3 (按 RID dedupe) + OASIS-3 → **~3,800 subjects / ~16,000 longi MRI sessions**
+- 量级仍比 BrainIAC (48,965 scans) 小 1/3 → 必须再补 ABCD + UK Biobank brain + Open BHB (见 Part 4)
+- TADPOLE D1 = features only，不能补 raw image，但是下游 AD prediction benchmark
+- OASIS-4 当 differential dementia dx benchmark
+- ADNI4 太新，做 zero-shot evaluation
+
+**Access 简化（最重要）：**
+- ADNI: LONI IDA 注册 → DUA → **~2 周**审核，**免费**，**可 redistribute model weights**
+- OASIS: portal/NITRC → ~几天到 2 周 → 免费 → 但需 cite specific NIH grants
+
+**License 关键**：ADNI 和 OASIS 都不能 redistribute raw imaging data，但 model weights 通常 OK（避免可逆识别即可）
+
+详细每个数据集的 access / scanner / 配对 biomarker / 已用 FM 工作 等信息见 [datasets-adni-oasis.md](datasets-adni-oasis.md)。

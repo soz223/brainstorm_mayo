@@ -41,7 +41,8 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - **Paper proposal v0.1**：[paper-proposal.md](ideas/direction-a/paper-proposal.md)（含 task I/O + 2D-vs-3D rationale）
 - 文献综述：[lit-review.md（英文~75 篇）](ideas/direction-a/lit-review.md) · [中文简版](ideas/direction-a/lit-review-zh.md)
 - 数据集 inventory：[datasets.md（英文~70 个）](ideas/direction-a/datasets.md) · [中文简版](ideas/direction-a/datasets-zh.md)
-- **数据集深度调研**：[datasets-deep.md](ideas/direction-a/datasets-deep.md)（Part 2 肿瘤 + Part 4 UKB/体部 + Part 5 2D；Part 1 + Part 3 + Brain MRI 待）
+- **数据集深度调研**：[datasets-deep.md](ideas/direction-a/datasets-deep.md)（Part 2 肿瘤 + Part 4 UKB/体部 + Part 5 2D + Part 6 ADNI/OASIS 指针；Part 1 肺筛 + Part 3 多模态 CT + 其他 brain MRI 待）
+- **ADNI/OASIS/TADPOLE 详**：[datasets-adni-oasis.md](ideas/direction-a/datasets-adni-oasis.md)（805 行 deep dive，澄清 OASIS-3 vs OASIS-4 + TADPOLE 1667 真实数）
 
 ### Trend 分析（Stage 1–3）
 - [Stage 1A: ML 顶会 trending（~85 篇）](ideas/trends/stage1a-ml-venues.md) · [中文简版](ideas/trends/stage1a-ml-venues-zh.md)
