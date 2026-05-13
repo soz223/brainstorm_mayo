@@ -490,7 +490,261 @@
 
 ## Part 3: 多模态 / 通用纵向 CT 语料库
 
-⏳ subagent 调研中，回来更新。
+> **关键发现**: 公开真正纵向 CT 唯一大规模源仍是 **NLST**。INSPECT 主要是 EHR 纵向但 CT 多为 1-2 次。**CT-RATE 不是纵向**（multi-volume = 重建变体）。
+
+### 3.1 INSPECT (Stanford) ⭐⭐⭐
+
+**基本信息**
+- 论文: Huang S-C, Huo Z, ..., Shah NH, Fries JA. NeurIPS 2023 D&B Track.
+- arXiv: [2311.10798](https://arxiv.org/abs/2311.10798)
+- 官网: https://som-shahlab.github.io/inspect-website/
+- 代码: https://github.com/som-shahlab/INSPECT_public
+- AIMI: https://aimi.stanford.edu/datasets/inspect-Multimodal-Dataset-for-Pulmonary-Embolism-Diagnosis-and-Prognosis
+
+**规模（一手）**
+- **病人: 19,402 distinct**（som-shahlab + Redivis + arXiv 一致）
+- **CTPA scans: 23,248**
+- 原始 sample 池 26,475 CT，清洗到 24,474，最终 cohort 23,248
+- 时间: 2000-2021 (Stanford Health Care)
+- **EHR 事件总量: 225M+**（9 个 STARR-OMOP 表）
+
+⚠️ **纵向 CT 子集**（**Direction A 关键数字**）：
+- 论文/官网/README **没显式公布** ≥2 CTPA timepoints 病人数
+- **数学估计: 23,248 / 19,402 = 1.20 scans/患者 → ~3,000-4,000 病人 ≥2 CTPA**
+- ≥3 timepoint: 估 <1,000
+- "longitudinal" 主要指 **longitudinal EHR**（每病人多年事件流），**不是多张 CT**
+- 真正验证: DUA 后 `df.groupby('person_id').size().value_counts()`
+
+**配对数据**
+- 报告: **impression sections only**（不是完整 report）
+- EHR: OMOP CDM 9 表（demographics / conditions / procedures / drug / labs / observations / visits）
+- **8 个 outcome tasks**: PE +/-; 12-mo mortality / PE recurrence / PH onset; hospitalization / readmission 变体
+
+**Access**: AIMI 申请 + Stanford DUA (non-commercial) → **1-4 周**；CT DICOM (+ 预处理 NIfTI / HDF5)；模型 weight 可分享
+
+**Caveats**:
+- ⚠️ **只 CTPA**（contrast-enhanced PE-protocol），不是 routine chest CT，泛化受限
+- ⚠️ 单中心 Stanford
+- ⚠️ Impression only 不是完整 report
+
+**已用**: **Stanford TTE Pretraining** (2411.09361) 用作 downstream eval；Huo 2024 multimodal ablation；Snorkel weakly-supervised label; EHRSHOT 姊妹 benchmark
+
+---
+
+### 3.2 CT-RATE ⚠️ **关键澄清：不是纵向**
+
+**基本信息**
+- Hamamci IE et al. arXiv [2403.17834](https://arxiv.org/abs/2403.17834)（v1 2024.03，v latest 2026.02，30 个作者）
+- HF: https://huggingface.co/datasets/ibrahimhamamci/CT-RATE
+- 扩展 RadGenome-Chest CT: arXiv 2404.16754 → Nature Sci Data 2025
+
+**规模**
+- **病人: 21,304 unique**
+- **3D CT volumes: 25,692 non-contrast chest CT**
+- 扩展（重建变体）: 50,188 volumes
+- train/val: 20,000 / 1,304 病人
+- 总大小 21.3 TB
+
+⚠️ **纵向 vs 重建（关键澄清！）**:
+- HF dataset card 明确：**多 volume per patient = different reconstructions (kernel/slice)**，**NOT longitudinal timepoints**
+- 命名: `split_patientID_scanID_reconstructionID`
+- 25,692 / 21,304 ≈ 1.21 volumes/patient，是**重建数不是时间点数**
+- **结论：CT-RATE 不能用于纵向预训练**，只能 single-timepoint VLM
+
+**配对数据**
+- **完整 radiology reports**（土耳其原文 + GPT 翻译英文，impression + findings）
+- **18 abnormality labels** binary
+- demographics 有限
+- **无 outcome labels** — 没 mortality / 临床终点
+
+**Access**: HF 注册 + Terms → 立即下载；NIfTI 已标准化；118,973 downloads last month
+
+**License**: **CC BY-NC-SA 4.0** + Terms #5 禁止 redistribution（条款互相冲突）
+
+**Caveats**:
+1. ⚠️ **不是纵向**（这是关键 correction）
+2. 单中心 Istanbul Medipol，土耳其人口
+3. 报告是机翻英文有噪声
+4. Non-contrast chest only
+
+**已用**: CT-CLIP, CT-CHAT (Hamamci 自己), M3D, Merlin 部分对比, RadGenome-Chest CT (Zhang 2024 扩展为 197 organ + 665K grounded sentences + 1.2M VQA pairs)
+
+---
+
+### 3.3 MIDRC (NIH)
+
+**基本信息**
+- 主导: NIBIB-funded, RSNA + ACR + Univ Chicago
+- Baughan N et al., PMC10704184 2023
+- 官网: midrc.org / data.midrc.org
+
+**规模**
+- 公开 imaging studies: 135K+ (2025-26)
+- 总收集: 300K+ (~80% 公开 / ~20% sequestered)
+- Modality: 起 chest X-ray + chest CT (COVID)，扩展 MRI/US/PET/其他
+
+**纵向？**: ❌ **没有专门纵向 cohort 设计**；MIDRC 是 cross-sectional ingest；个别机构可能有 follow-up 但**不是设计目标**
+
+**Caveats**: 非纵向；metadata 而非完整 EHR/报告；不适合 Direction A 纵向预训练
+
+---
+
+### 3.4 Stony Brook COVID-19 (COVID-19-NY-SBU)
+
+**基本信息**
+- TCIA collection: COVID-19-NY-SBU
+- Saltz J et al. 2021 TCIA, DOI 10.7937/TCIA.BBAG-2923
+- URL: https://www.cancerimagingarchive.net/collection/covid-19-ny-sbu/
+
+**规模**
+- **病人: 1,384**, 7,361 studies, 17,950 series, 562,376 images, 511.48 GB
+- Modality: CT, CR, DX, MR, SR, NM, PT, OT
+
+**纵向？**: ⚠️ **部分有 follow-up data type**，但**发布版本每病人选 "most severe encounter"**，公开 CSV 1 row/patient。原始 PACS 有多 visit 但**公开版本压缩为单 encounter**。
+
+**License**: **CC BY 4.0**（宽松，可 redistribute with attribution）
+
+**Caveats**: COVID-only 特定时期 (2020)；公开版只保留每病人 1 encounter；单中心 NY/Long Island
+
+---
+
+### 3.5 LIDC-IDRI
+
+**基本信息**
+- Armato SG 3rd et al., Med Phys 38:915-931, 2011
+- DOI: 10.1118/1.3528204
+- TCIA: https://www.cancerimagingarchive.net/collection/lidc-idri/
+
+**规模**
+- 病人: **1,010** / 1,308 studies / 244,527 images
+
+**纵向？**: ⚠️ **只 8 个病人有 2 个 timepoints**（TCIA 官方文档），实际几乎是 single-timepoint，**不能作纵向**
+
+**License**: **CC BY 3.0**（可商用 with attribution）
+
+**特色**: 4 个放射医生独立 nodule 标注；经典 nodule detection baseline；但纵向**完全不适合**
+
+---
+
+### 3.6 DeepLesion
+
+**基本信息**
+- Yan K et al., J Med Imaging 5(3):036501, 2018, DOI 10.1117/1.JMI.5.3.036501
+- NIH 下载: https://nihcc.app.box.com/v/DeepLesion
+
+**规模**
+- **病人: 4,427 unique** / 10,594 studies / 32,120 axial key slices / 32,735 bookmarks (RECIST 测量)
+
+**纵向？**: ✅ **是的！**
+- 10,594 / 4,427 = **2.39 studies/patient**——**绝大多数病人有多次扫描**
+- Bookmark identifiers 含 "follow-up set number"，**同一病灶跨多次扫描追踪**
+- 一手论文："One patient often underwent multiple CT examinations"
+- 衍生 **Deep Lesion Tracker (Cai 2021 CVPR)** 构建 **3,891 lesion pairs** 作 longitudinal lesion tracking benchmark
+- ⚠️ 但 public release **只 key slices ± 30mm context**，**不是完整 volume**
+
+**配对数据**: RECIST diameter + bbox per lesion；pixel spacing / slice interval / intensity window / gender / age；8 类病灶；**无报告 / 完整 EHR**
+
+**License**: NIH 公开（不显式 CC）；⚠️ **2024 起 NIH 暂停下载**（社区有 academictorrents mirror）
+
+**Caveats**:
+1. ⚠️ **不是完整 3D volume** — 只 key slice ± 30mm context（30 slices each）
+2. 时间戳信息部分去标识化模糊
+3. 适合 **lesion tracking**、不适合 organ segmentation 全卷预训练
+
+**已用**: ULDor, MULAN, Deep Lesion Tracker (Cai 2021), LesionPaste, ModelsGenesis
+
+---
+
+### 3.7 AbdomenAtlas / TotalSegmentator
+
+**AbdomenAtlas (Li 2024 MedIA, arXiv 2407.16697)**
+- 3 个版本: 1.0 (5,195 CT, 88 hospitals, 9 organs) / 1.1 (9,262 CT, 25 classes) / full MedIA 2024 (**20,460 CT, 112 hospitals, 22 anatomical structures, 673K masks**)
+- 纵向: ❌ **没有纵向设计**——aggregator 聚合 14+ 公开数据集
+- License: CC BY-NC-SA 4.0
+
+**TotalSegmentator (Wasserthal 2023, Radiology: AI)**
+- 1,228 CT + 616 MR subjects, **117 main classes**
+- 纵向: ❌ 无 longitudinal 设计
+- License: Apache 2.0 (tool); 数据 CC BY-SA 4.0
+
+**共同 Caveats**: 都不适合纵向预训练；适合 organ seg pretraining / decoder 初始化。AbdomenAtlas 是当前**最大的有标注 abdominal CT 集**。
+
+**已用**: SuPreM (Li 2024 ICLR oral) 用 9,262 AbdomenAtlas-1.1；Touchstone (NeurIPS 2024) 5,172 OOD CT volumes benchmark；TotalSegmentator V2
+
+---
+
+### 3.8 NLST 衍生（详 Part 1.1，重复要点）
+
+- TCIA NLST collection: 26,254 subjects / 203,099 series / **21,082,265 images**
+- DOI: 10.7937/TCIA.HMQ8-J677
+- License: CC BY 4.0
+- **真正纵向 ✅**: 3 annual rounds，~75-80% 完成全部 3 轮
+- 配对 outcomes via CDAS
+
+---
+
+### 3.9 IDC (Imaging Data Commons) ⭐⭐ NLST 最佳访问路径
+
+**基本信息**
+- Fedorov A et al., Cancer Research 81(16):4188-4193, 2021, DOI 10.1158/0008-5472.CAN-21-0950
+- 2023 RadioGraphics 更新, DOI 10.1148/rg.230180
+- Portal: https://portal.imaging.datacommons.cancer.gov/
+
+**规模（Release 24.0, 2026-04-27）**
+- 总 cases: **85,682**
+- Image series: **1,032,911**
+- Collections: **176**
+- 数据量: **99.27 TB**
+- Modality: CT + MR + PET + Slide Microscopy + SEG
+
+**纵向 collections（Direction A 金矿）**
+- **NLST**（>75K CT screening on IDC + TCIA）
+- NSCLC-Radiomics, NSCLC-Radiomics-Genomics
+- TCGA 系列（GBM/LGG/BRCA/COAD/READ/KIRC 等）
+- Pediatric (CCDI)
+- HTAN
+- LIDC-IDRI
+- QIN-LUNG-CT, QIN-PROSTATE-Repeatability
+
+**Access**: **完全免费 cloud access**；5 个 interface：GCP+AWS buckets / BigQuery / Python `idc-index` / REST API / DICOMweb；公开 tier 无需 DUA
+
+**License**: 逐 collection 不同（多数 CC BY 4.0）
+
+**Caveats**: IDC 不产生数据 — aggregator；纵向性取决于底层 collection；没 EHR/报告（非 INSPECT 那种 multimodal）
+
+---
+
+### Part 3 汇总 Table（Direction A 视角）
+
+| 数据集 | 病人 | CT volumes | **真正纵向 ≥2 TP** | 配对模态 | 适合度 |
+|---|---|---|---|---|---|
+| **INSPECT** | 19,402 | 23,248 CTPA | **~3-4K 估**（math：1.20 scans/pt，需 DUA 跑） | ✅ EHR 225M + impression + 8 outcome | ⭐⭐⭐ multimodal eval；纵向 CT 规模有限 |
+| **CT-RATE** | 21,304 | 25,692 | **0**（multi-vol = 重建非 TP）| 报告 + 18 标签；无 EHR | ⭐ 仅 single-TP VLM |
+| **MIDRC** | N/A | 135K studies | **无统一纵向 cohort** | structured metadata | ⭐ COVID 主要 |
+| **Stony Brook** | 1,384 | subset CT | **公开版强制 1 encounter/pt** | OMOP-like + COVID | ⭐ 小规模 baseline |
+| **LIDC-IDRI** | 1,010 | 1,308 | **仅 8 病人** ≥2 TP | 4-radiologist nodule annot | ❌ 纵向不可用 |
+| **DeepLesion** | 4,427 | 10,594 (key slices only) | **大多数 ≥2 study** (avg 2.39); 3,891 lesion pairs | RECIST + bbox；无报告 | ⭐⭐ lesion tracking only |
+| **AbdomenAtlas** | N/A | 5,195/9,262/20,460 | **无纵向设计** | 22-organ seg masks | ⭐ Organ seg init |
+| **TotalSegmentator** | N/A | 1,228 CT + 616 MR | **无纵向** | 117 anatomical seg | ⭐ Encoder/decoder init |
+| **NLST (TCIA)** ⭐ | 26,254 | 21M images | **~20K ≥2 TP, ~16K ≥3 TP** | 6.5-yr mortality + 肺癌 via CDAS | ⭐⭐⭐ 大规模纵向 |
+| **IDC** | 85,682 cases | 1.03M series, 99 TB | **聚合 NLST + 部分 TCGA + QIN-repeat** | 跨 collection metadata | ⭐⭐ NLST 最佳访问 |
+
+### Part 3 关键 takeaway（给 Direction A）
+
+1. **公开真正纵向 CT 唯一大规模源仍是 NLST** (~20K ≥2 TP)。其他所谓"纵向"要么 EHR 纵向但 CT 1-2 次（INSPECT），要么是重建变体（CT-RATE），要么是 key-slice tracking（DeepLesion）
+
+2. **INSPECT 纵向 CT 实际规模**：官方不公布，数学估 ~3-4K ≥2 TP，<1K ≥3 TP。**Direction A 必须 DUA 后跑 cohort 脚本验证**
+
+3. **CT-RATE 不是纵向**（关键 correction）：21,304 病人 / 25,692 volumes 多 volume 是 **`reconstructionID`** 不是 timepoint
+
+4. **IDC 是 NLST 最佳访问路径**：免费、cloud-native、5 种 API；large-scale 纵向 pretraining 最实用
+
+5. **建议 Direction A 数据 stack**:
+   - Pretraining: **NLST (via IDC)** longitudinal backbone (~20K patient × 3 scan = ~60-75K longi CT)
+   - Eval multimodal: **INSPECT** (CT+EHR+报告 + 8 prognosis tasks)
+   - Eval lesion tracking: **DeepLesion + DLT 3,891 pairs**
+   - Eval single-TP VLM baseline: **CT-RATE + RadGenome-Chest CT**
+   - Decoder init: **AbdomenAtlas 1.1** 或 TotalSegmentator
 
 ---
 
