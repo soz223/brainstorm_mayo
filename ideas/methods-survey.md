@@ -7,7 +7,7 @@
 | Method | 状态 | 信号 | Mayo 杠杆 |
 |---|---|---|---|
 | **M3** Memory Layer | 待评 | ★★★ | 中 |
-| **M4** Speculative decoding | 调研中 | ? | ? |
+| **M4** Speculative decoding | 弃（engineering）| ★（绑定才有戏）| 弱 |
 | **M5** Test-time training | 候选 | ★★★ | optional |
 | **M8** Diffusion-as-FM | 候选 | ★★★ | optional |
 | **M9** Flow matching | 谨慎 | ★★（reviewer barrier 高） | optional |
@@ -155,9 +155,32 @@
 
 ---
 
-## M4. Speculative decoding (调研中)
+## M4. Speculative Decoding for Medical {#m4}
 
-详 subagent 报告时填入。
+**verdict**：technically open，但被看作 engineering 不是 ML。**弃**（除非绑定 reasoning chain 或 EHR drafter 泛化）。
+
+**closest**：
+- "Training Domain Draft Models for Speculative Decoding" (2503.07807, 2025) —— 模板，但研究 Function Calling / Biology / 中文，没 medical
+- Speculative Decoding and Specialized Drafters (EMNLP 2024)
+- ECHO (2604.09450) —— CXR 报告生成加速但用 block diffusion，不是 speculative
+- MedAide (2403.00830) —— edge deploy 但用 quantization
+
+**为什么不被发**：
+- 纯 ML 不够 novel
+- Vanilla speculative decoding **lossless** → 无 clinical safety 故事
+- 厂商 (Epic/Nuance/Hippocratic AI/Abridge) 都已经用 vLLM + EAGLE 但不发
+- 现在 bottleneck 在 reasoning-time scaling
+
+**3 个 framing**：
+1. 中等：domain drafter benchmark on MedQA + MIMIC-CXR （MLHC/MLSys）
+2. 较强：accelerate medical reasoning CoT（绑定到 I 方向）
+3. 弱：单纯 Medusa on CXR VLM → blog 不是 paper
+
+**Mayo 加成**：弱（仅在 "EHR drafter vs PubMed drafter 泛化 gap" 子 claim 有用）
+
+**venue**：MLHC / MLSys / workshop · **难度**：低 · **Mayo 必需**：no
+
+**结论**：弃，除非和 reasoning chain 或 EHR drafter 绑定。
 
 ## M5. Test-Time Training for 3D Radiology FM {#m5}
 
