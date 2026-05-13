@@ -342,3 +342,416 @@
 ## Part 3: 多模态 / 通用纵向 CT 语料库
 
 ⏳ subagent 调研中，回来更新。
+
+---
+
+## Part 4: UK Biobank + 体部 MRI / cardiac / Multimodal Population 纵向数据集
+
+### 4.1 UK Biobank Imaging ⭐⭐⭐⭐⭐
+
+**基本信息**
+- 论文：Littlejohns TJ et al. *Nat Commun* 11:2624 (2020), DOI: 10.1038/s41467-020-15948-9
+- Cardiac: Petersen SE et al. *J Cardiovasc Magn Reson* 18:8 (2016)
+- Brain: Miller KL et al. *Nat Neurosci* 19:1523-1536 (2016)
+- 官网: https://www.ukbiobank.ac.uk
+
+**规模（关键）**
+- 总入组: 500,000 (2006-2010, 40-69 yo)
+- **影像 cohort baseline: 100,000** —— **2025-07-16 完成**
+- **≥2 imaging timepoints: ~20,000 完成（截至 2025）；目标 60k by 2029**
+- ≥3 timepoints: Newcastle 已启动 third visit（≥2 yr after 2nd）
+- Brain MRI ~100k；Cardiac MRI ~100k；Abdominal MRI ~100k（**同人**）
+- DXA / Carotid US ~100k（>90% complete）
+- OCT + fundus baseline: 68,514
+
+**模态详情**
+- Brain: **3T Siemens Skyra** (T1, T2-FLAIR, swMRI, dMRI, rfMRI, task-fMRI)
+- Cardiac + Abdomen: **1.5T Siemens Aera** (cine SSFP, T1 map, Dixon, liver PDFF, pancreas T1)
+
+**配对数据**
+- HES + GP + cancer registry + death registry
+- WGS: **490,640 全部发布**（Li 2025 Nature, DOI: 10.1038/s41586-025-09272-9）
+- WES: 454,787 (Backman 2021)
+- ~30 blood biomarkers, NMR metabolomics 250k, Olink proteomics ~50k
+- Accelerometer 103,695
+
+**Access (2025 价格)**
+- Tier 1: £3,000 / Tier 2: £6,000 / **Tier 3: £9,000**（含 WGS + 全影像）
+- **无 academic/commercial 区别**
+- LMIC/学生: £500/3yr
+- £1,000 UKB-RAP 平台 credit
+- 等待: 4–12 weeks AMS 审核
+- **数据 cloud-only (UKB-RAP)，原始影像不能 egress**
+
+**Model weights 关键**: FM weights 视为 **derived variables**，必须 return 给 UKB；UKB 可再分发。实操：发布 inference code + training script，**不直接 host weights**。
+
+**Caveats**
+- Healthy volunteer bias (Fry 2017 AJE)
+- ~94% 白人
+- Imaging visits 偏 healthier/younger
+
+**已用 FM 工作**: ViTa (2504.13037, 42k cardiac CMR), BrainFounder (2406.10395), RETFound (Nature 2023), Bai et al. cardiac segmentation phenome-wide
+
+---
+
+### 4.2 NAKO (German National Cohort)
+
+**基本信息**
+- Peters A et al. *Eur J Epidemiol* 37:1107-1124 (2022), DOI: 10.1007/s10654-022-00890-5
+- MRI: Bamberg F et al. *Radiology* 277:206-220 (2015)
+- 官网: https://nako.de/en/
+
+**规模**
+- 总入组 baseline: **205,415** (2014-2019)
+- MRI sub-cohort baseline: **30,861** 全身 MRI
+- **First re-examination MRI (2024): 18,707** —— 即 **~18,000 病人 ≥2 MRI timepoints**
+- Second re-exam (3U) 开始 2024，目标 ~12,000
+
+**时间结构**
+- Baseline 2014-2019 → 1st re-exam 2019-2024 → 2nd re-exam 2024-
+- 间隔 **4–5 年**
+
+**模态**
+- **5 MRI 中心全部 Siemens MAGNETOM Skyra 3T**（比 UKB 更一致）
+- NEURO + MSK + BODY + CARDIO 4 blocks (~60 min total)
+
+**Access**
+- TransferHub，UAC 审核 ~4 周
+- **EU/EEA + GDPR 兼容**（美国研究者麻烦）
+- TRE pilot 2025 launched
+- 2,400 注册研究者
+- MRI 提供 **defaced NIfTI**
+
+**Caveats**: 美国 access 比 UKB 麻烦；论文产出比 UKB 少
+
+---
+
+### 4.3 MESA (Multi-Ethnic Study of Atherosclerosis)
+
+**规模**: 6,814 baseline (1999-2000), 4 种族
+- **Cardiac MRI**: Exam 1 (2000-02) 5,098 scans → Exam 5 (2010) 3,015 完成 → **≥2 CMR timepoints ~3,015**
+- Brain MRI: ~1,000 (Exam 6, 2016-2018)
+- Cardiac CT (CAC): ~6,000 serial multiple exams
+- Exam 7 (2022-2024)
+
+**Access**: BioLINCC / dbGaP，免费 academic。Cardiac Atlas Project 公开 2,450 cases。
+
+**Caveats**: 样本比 UKB 小 ~30x，但多族裔代表性好。
+
+---
+
+### 4.4 Framingham Heart Study
+
+**规模**: ~15,400 跨所有 cohorts；**brain MRI ~2,700**（Offspring Exam 7 2,307 + Original 372）
+- Cardiac MRI sub-study: **1,114 Offspring 同时有 brain + cardiac**
+- ≥2 MRI: ~1,000–2,000
+
+**特色**: **77 年纵向**（最长）；多代家系
+
+**Caveats**: 种族 representation 差（原始 cohort 几乎全白）
+
+---
+
+### 4.5 Project Baseline (Verily)
+
+**规模**: 计划 10k → 实际 ~2,500 deeply characterized
+- echo + CAC CT + retinal + carotid US + ECG（**无 brain/cardiac MRI**）
+- ≥2 timepoints: yes（年度 ≥4 yr）
+
+**Access**: **Closed** —— 不开放 academic 申请 ❌
+
+---
+
+### 4.6 All of Us
+
+**重要更正**: **目前 NOT an imaging dataset**！
+- 832,000+ enrolled (2025)，core data = survey + EHR + genomics + biospecimen
+- WGS: 245,388 (2023)
+- **EHR-linked DICOM 计划 2025-2026 才开始**
+- **Diversity 优势**: >50% non-white
+
+**对 Direction A**: 暂时不能用 imaging
+
+---
+
+### 4.7 Generation R Study
+
+**规模**: 9,778 mothers / **3,542 offspring**
+- Wave 1 MRI (2009, ages 6-9): 1,070
+- **Wave 2 MRI (2013-15, ages 9-11): 4,087**
+- Wave 3 MRI (~2019-21, age 13): ~5,000 目标
+- Wave 4 MRI (2022+, ages 16-17): 进行中
+- **≥2 MRI: ~3,500；≥3: ~1,000+**
+
+**特色**: pediatric → 长大成人，3T GE，brain + body 混合
+
+**Access**: DUA with Erasmus MC
+
+---
+
+### 4.8 MIDRC
+
+**规模**: **>300,000 imaging studies / ~68k patients**
+- RICORD-1A: 120 thoracic CT (COVID+)
+- RICORD-1B: 120 CT (COVID−)
+- RICORD-1C: 998 CXR / 361 patients
+
+**关键事实**: **不是 longitudinal cohort**——是 multi-institutional ingest，主要 cross-sectional
+
+**Access**: data.midrc.org 免费 (CC BY)。**20% sequestered for held-out testing**。
+
+---
+
+### 4.9 ABCD Study
+
+**规模**: 11,878 youth (9-10 yo baseline 2016-18)
+- biennial MRI cadence (Y0, Y2, Y4, Y6, Y8, Y10)
+- **≥2 timepoints: majority (~7,000+ with follow-up)**
+- ≥3 timepoints: 进行中（Y4 release 2024+）
+
+**仅 brain MRI**——no cardiac / abdominal
+
+**Access**: NDA, 免费 academic
+
+---
+
+### 4.10 CARDIA
+
+**规模**: 5,114 baseline (1985-86, ages 18-30, bi-racial Black/White)
+- Brain MRI Y25 (2010-11): 719
+- Y35 (2020-22): **1,074**
+- Echo Y5/10/25/30，Cardiac CT Y15/20/25
+- ≥2 brain MRI: ~500-700
+
+**特色**: **38+ 年纵向** (仅次于 Framingham)；imaging from young age
+
+**Access**: BioLINCC 免费
+
+---
+
+### 4.11 CHILD Study (用户可能记错了)
+
+CHILD = Canadian Healthy Infant Longitudinal Development —— **没有系统 MRI**
+
+用户可能想说的是 **HBCD (HEALthy Brain & Child Development)** —— NIH 0-10 yr neuroimaging cohort，~7,500 mothers + 婴儿；2021 launch，尚未大规模 release。
+
+---
+
+### Part 4 汇总 Table
+
+| 数据集 | Imaging N | ≥2 MRI TP | ≥3 MRI TP | 模态 | 同人多器官 | 费用 | 总跨度 |
+|---|---|---|---|---|---|---|---|
+| **UK Biobank** ⭐ | 100,000 | **~20,000** → 60k by 2029 | 进行中 | brain+cardiac+abdomen+DXA+US+OCT | ✓ | £3-9k | 25+ yr |
+| **NAKO** | 30,861 | **~18,000** | 进行中 | brain+cardiac+abdomen+MSK | ✓ | cost-rec | 2014- |
+| **MESA** | 5,098 CMR | ~3,015 | small | Cardiac MRI/CT + brain (later) | partial | $0 | 26 yr |
+| **Framingham** | ~2,700 brain | ~1,000+ | subset | brain+cardiac+echo | 1,114 ovrlp | $0 | **77 yr** |
+| **Project Baseline** | 2,500 | yes (annual) | yes | echo+CAC+retinal (no MRI) | partial | n/a | 2017- |
+| **All of Us** | ~0 native | n/a | n/a | EHR-derived (in dev) | n/a | 免费 acad | 2018- |
+| **Generation R** | 4,087 (W2) | ~3,500 | ~1,000+ | brain + body MRI | partial | DUA | 24 yr |
+| **MIDRC** | 300k+ studies | **mostly cross-sectional** | ✗ | CXR+CT+expanding | mostly chest | 免费 | 2020- |
+| **ABCD** | 11,878 | ~7,000+ | growing | brain MRI only | ✗ | 免费 acad | 10 yr planned |
+| **CARDIA** | ~1,074 brain | ~500-700 | smaller | brain+cardiac MRI/CT+DXA | ~70 all | $0 | **38+ yr** |
+
+---
+
+### Part 4 关键结论（对 Direction A）
+
+1. **UK Biobank 是 king**：100k 同人 brain+heart+abdomen 多模态，~20k ≥2 TP (2025)，目标 60k by 2029。**但 model weights 必须 return UKB**（march-in clause）
+2. **NAKO 是最佳补充**：~18k ≥2 MRI TP，3T 统一 Skyra（比 UKB cardiac 1.5T 更一致），但 access 卡 GDPR
+3. **真正可用 multimodal + ≥2 TP + 同人的数据集**：实际只有 **UKB (~20k)**、**NAKO (~18k)**、**Generation R (pediatric)**、**CARDIA (small)**
+4. **All of Us 暂时不是 imaging dataset** —— 简版有歧义，更正
+5. **MIDRC 不适合纵向 FM**（cross-sectional ingest）
+6. **Weight redistribution 难题**: UKB-trained FM 无法 release 权重（只能 release inference code + training recipe）。RETFound 是 exception（数据 partly external from Moorfields）
+7. 用户列的 "CHIRP" 不存在，可能是 **HBCD** (NIH 0-10 yr 神经影像 cohort)
+
+---
+
+## Part 5: 2D 纵向数据集（CXR / OCT / Fundus / Mammography / US / Pathology）
+
+> 用于回答 "如果 Direction A 改 2D，哪些 dataset 真的能撑起 FM scale"。
+
+### 5A. CXR 纵向
+
+#### MIMIC-CXR ⭐⭐⭐⭐⭐
+- **病人数**: 65,379 unique
+- **≥2 TP: 26,625** | **≥3 TP: 16,135** | **≥5 TP: 8,035** (一手 Hou 2023 PMC10370215 Table 1)
+- 时间: 2011-2016 BIDMC
+- 配对: 自由报告 + CheXpert/NegBio labels + **MIMIC-IV linkage** (labs / meds / ICU vitals / mortality)
+- Access: **PhysioNet credentialed**（1-2 周）
+- **Direction A 2D 首选**
+
+#### CheXpert Plus
+- 病人 64,725 / 报告 223,228 / **关键字段 `patient_report_date_order`**
+- ~40k+ ≥2 studies（估算 187,711 / 64,725 ≈ 2.9 avg）
+- 时间: 2002-2017 Stanford
+- 2024 才公开 reports → **underused for longitudinal**
+- License: Stanford research-only
+
+#### PadChest
+- 67,000 病人 / 109,931 studies / **2009-2017 西班牙 Alicante**
+- ~30-35k ≥2 TP（估）；官方未发 longitudinal split
+- Reports 西班牙文
+- License: research-only
+
+#### PLCO CXR ⭐
+- **56,071 患者 / 185,241 CXR / TIF**
+- **结构化 T0-T3 annual screen** + **lung cancer outcomes** (median ~12yr follow-up)
+- Image 申请 **cap 25k subset**
+- CDAS 等待 3-6 月
+- **最适合 longitudinal risk FM**
+
+#### ChestX-ray14 (NIH)
+- 30,805 病人 / 112,120 frontal images
+- **无 absolute timestamps**（只有 follow-up index）
+- 无 reports
+- 完全开放下载（无 DUA）
+
+#### VinDr-CXR
+- 18,000 images，**cross-sectional only**，detection benchmark
+- ❌ 不适合 longitudinal
+
+#### MIMIC-IV-linked CXR
+- = MIMIC-CXR ∩ MIMIC-IV
+- ~60,000+ overlap → **CXR + EHR over time** 多模态 longitudinal 核心
+
+---
+
+### 5B. Retinal (OCT / Fundus) 纵向
+
+#### OPHDIAT ⚠️ 不公开
+- **101,383 糖尿病患者 / 763,848 fundus / 2004-2017 / annual**
+- L-MAE 等 paper 用了
+- **法国 IMT Atlantique 私有，需建立合作**
+- 不要 plan 在它上面除非已有 collaborator
+
+#### AREDS / AREDS2
+- 4,757 + 4,203 patients (~9k total)
+- 长 follow-up: AREDS median 6.5yr，AREDS2 median 5yr，**annual structured**
+- dbGaP controlled，等待 6-8 周
+- 基本所有 patient ≥2 TP
+- **样本量太小做 FM 但 evaluation/finetune 优秀**
+
+#### EyePACS Kaggle (公开版)
+- 88,702 images / 44,351 patients × 2 eyes
+- **Cross-sectional only**（每病人 1 visit）
+- 完整 EyePACS network (107k+ longi) **不公开**
+
+#### Messidor / Messidor-2
+- &lt;1.2k images，cross-sectional，**仅 evaluation**
+
+#### UK Biobank fundus + OCT ⭐
+- ~67k baseline + repeat ongoing
+- **~50k+ 完成 first repeat**
+- 多模态 phenotype: WGS + EHR + brain/cardiac/abdomen MRI
+- 付费 access，4-10 yr 间隔
+- 已用于 RETFound (Nature 2023), retinal aging clock (eLife 2023)
+
+---
+
+### 5C. Mammography 纵向
+
+#### EMBED (Emory) ⭐⭐⭐⭐⭐
+- **115,910 病人 / 3.65M images / 2013-2020**
+- **3-yr follow-up: 37,939 patients ⭐**
+- **5-yr follow-up: 24,933 patients ⭐**
+- 40,000 ROI annotations，**Race 平衡 Black/White**
+- **AWS 20% subset 立即可用**；完整 access Emory DUA ~2-3 月
+- **唯一公开 5-yr follow-up &gt;20k patients 的 2D dataset**
+
+#### OPTIMAM ⭐⭐⭐⭐⭐ 规模最大
+- **&gt;10M images / &gt;740,000 women / UK NHS triennial screen**
+- 中位 follow-up 6-9 yr，每 woman 2-3 screening rounds
+- License: CRUK + Royal Surrey DAC，等 3-6 月
+- 已被 30+ 商业/学术组用 (Lunit, ScreenPoint, Kheiron)
+
+#### CSAW (Karolinska)
+- ~1.1M exams / ~470k women，**不公开**（仅 Mirai 等合作）
+- CSAW-CC subset (~9.5k) 部分公开
+
+#### CMMD
+- 1,775 病人，**cross-sectional**，仅 evaluation
+
+#### CBIS-DDSM
+- 1,566 病人，cross-sectional，**SFM (扫描胶片)** 不是 FFDM，仅 benchmark
+
+#### MIRAI MGH 数据
+- &gt;200k mammography exams for training，**不公开**
+
+---
+
+### 5D. Ultrasound 纵向
+
+❌ **几乎不存在公开的 longitudinal US dataset**
+
+- UltraFedFM: 1M+ images / federated → 不可下载
+- BUSI / BUS-BRA / BUS-UCLM: 全 cross-sectional
+- Echocardiography (TMED-2, EchoNet-Dynamic) 有 multi-clip 但不是 multi-visit
+- → **建议放弃 US 模态**
+
+---
+
+### 5E. Pathology 纵向
+
+⚠️ **不存在 FM-scale longitudinal 病理 dataset**
+
+- TCGA WSI: 30k slides，**no pre/post-treatment pairing**
+- IMPRESS: 126 WSIs，HER2+/TNBC NAC pre/post，**太小**
+- Post-NAT breast: 54 patients，**太小**
+- 病理本质上极少做配对前后取样（创伤大）
+- → **Pathology direction A 在 longitudinal 上 essentially DOA**
+
+---
+
+### 2D 数据集汇总（按 FM-scale 可达度）
+
+| 数据集 | 模态 | 病人 ≥2 TP | Access 难度 | FM-scale? | 推荐度 |
+|---|---|---|---|---|---|
+| **MIMIC-CXR** | CXR | **26,625** | 易（PhysioNet）| ✅ | ⭐⭐⭐⭐⭐ |
+| **CheXpert Plus** | CXR | ~40k+ | 易（Stanford AIMI）| ✅ | ⭐⭐⭐⭐ |
+| **PadChest** | CXR | ~30-35k | 中（BIMCV）| ✅ | ⭐⭐⭐⭐ |
+| **PLCO CXR** | CXR | majority | 3-6 月 CDAS | ✅ structured | ⭐⭐⭐⭐⭐ for risk |
+| **ChestX-ray14** | CXR | ~15-18k | 开放 | borderline | ⭐⭐⭐ |
+| VinDr-CXR | CXR | NONE | 易 | ❌ | ⭐ eval only |
+| **OPHDIAT** | Fundus | majority | **不公开** | ✅ if access | ⭐⭐⭐⭐⭐ if 可达 |
+| **AREDS+AREDS2** | Fundus | ~9k all ≥2 | dbGaP 6-8wk | ⚠️ borderline | ⭐⭐⭐⭐ for AMD |
+| EyePACS Kaggle | Fundus | NONE | 易 | ❌ | ⭐⭐ |
+| **UK Biobank fundus** | Fundus+OCT | ~50k+ | UKB AMS 3-6mo 付费 | ✅ multi-modal | ⭐⭐⭐⭐⭐ for aging |
+| Messidor/-2 | Fundus | NONE | 开放 | ❌ | ⭐ eval |
+| **EMBED** | Mammo | **24,933 (5yr)** | AWS 20% / Emory DUA | ✅ rich follow-up | ⭐⭐⭐⭐⭐ |
+| **OPTIMAM** | Mammo | **majority of 740k** | CRUK 3-6mo | ✅ **biggest** | ⭐⭐⭐⭐⭐ |
+| CMMD / CBIS-DDSM | Mammo | NONE | 易 | ❌ | ⭐ eval |
+| MIRAI MGH | Mammo | longi | **不公开** | N/A | ⭐ |
+| UltraFedFM | US | unclear | **不可访问 raw** | ❌ | ⭐ weights only |
+| BUSI/BUS-* | US | NONE | 易 | ❌ | ⭐ eval |
+| IMPRESS WSI | Path | 126 pairs | 公开 | ❌ 太小 | ⭐⭐ small case |
+| TCGA WSI | Path | mostly NO | 开放 | ❌ NOT longi | ⭐ |
+
+### 2D Direction A 现实方案
+
+**方案一：CXR 路线（最稳）**
+- Pretrain: MIMIC-CXR + CheXpert Plus + PadChest → **80k-100k 病人 ≥2 TP**
+- Evaluation: PLCO (lung cancer)、VinDr (detection)、Messidor cross-domain
+
+**方案二：Mammography 路线（最适合 risk）**
+- Pretrain: EMBED + OPTIMAM → **~700k+ women, structured intervals**
+- Evaluation: CMMD / CBIS-DDSM / Mirai cohorts
+
+**方案三：Retinal 路线（需 access）**
+- Pretrain: UK Biobank fundus + AREDS/2 + 公开 fundus 集 (如能拿 OPHDIAT or EyePACS full)
+- Evaluation: Messidor-2, IDRiD, APTOS
+
+**Pathology / Ultrasound**: 数据上 infeasible，建议放弃或 reframe single-timepoint。
+
+---
+
+### 2D vs 3D 总结判断
+
+| 维度 | 2D | 3D |
+|---|---|---|
+| 数据量 | MIMIC ~27k + Plus ~40k + EMBED ~25k = **&gt;90k 病人 ≥2 TP** | NLST + UKB + ABCD + ADNI etc. **30-50k ≥3 TP** |
+| 数据可达 | **公开 access 普遍** | DUA + 付费多 |
+| 竞争 | **Microsoft 主导 CXR**（BioViL-T/MAIRA-2/HERGen/MLRG）| 真空白 |
+| 临床价值 | screening / 报告生成 | dx / treatment / 预后 |
+| paper 影响力 | 中（增量）| 高（首次）|
+
+**结论**：2D 数据更多更易，但被 Microsoft / Stanford 占；3D 数据稀缺但**整片空白**。Direction A 维持 3D 主线，但 paper 可考虑 2D 作 "demonstrating method also works on 2D" 的 robustness 章节。
