@@ -1207,3 +1207,561 @@ CHILD = Canadian Healthy Infant Longitudinal Development —— **没有系统 M
 **License 关键**：ADNI 和 OASIS 都不能 redistribute raw imaging data，但 model weights 通常 OK（避免可逆识别即可）
 
 详细每个数据集的 access / scanner / 配对 biomarker / 已用 FM 工作 等信息见 [datasets-adni-oasis.md](datasets-adni-oasis.md)。
+
+---
+
+## Part 7: AD / 神经退行性疾病 brain MRI 纵向（9 个，跳过 ADNI/OASIS/TADPOLE）
+
+### 7.1 AIBL (Australian Imaging Biomarkers and Lifestyle)
+
+**基本信息**
+- 出处: CSIRO + Florey Institute + ECU 联合，2006 启动
+- Descriptor: Ellis KA et al., *Int Psychogeriatr* 21(4):672-687 (2009), DOI 10.1017/S1041610209009405, [PubMed 19470201](https://pubmed.ncbi.nlm.nih.gov/19470201/)
+- 15-yr 更新: Fowler C et al., *JADR* 5(1):443-468 (2021), [PMC8293663](https://pmc.ncbi.nlm.nih.gov/articles/PMC8293663/)
+- 官网: [aibl.org.au](https://aibl.org.au/) / 数据 [LONI IDA](https://ida.loni.usc.edu/collaboration/access/appApply.jsp?project=AIBL)
+
+**规模**
+- baseline 1,112 → 2,359 (2021) → **3,045 (2023.02) / 10,494 person-contact years**
+- baseline MRI 子集: 287 (53 AD / 57 MCI / 177 HC)
+- 后续 +250 MR/Flutemetamol, +200 MR/Florbetapir, +50 MR/PiB
+- **18 个月间隔**，19+ 年项目期，长期参与者达 ≥6 TP
+- 精确 ≥3/≥5 TP 分布**未公开**，需 LONI dashboard 查
+
+**模态**: 1.5T + 3T 混合；T1 MPRAGE / T2 FSE / FLAIR；PET PiB + Florbetapir + Flutemetamol
+
+**配对**: 血浆 biomarker 强项（血液 panel 是 AIBL 特色） + 部分 CSF；APOE 全员 + 亚组 WGS；MMSE/CDR/neuropsych；**lifestyle data** (饮食/运动/睡眠)；AD/MCI/HC 临床诊断 + 转化时点
+
+**Access**: LONI IDA 与 ADNI 同流程，DUA + PI 资历，1-4 周；免费
+
+**Caveats**: MRI 子集 <30%；1.5T+3T batch effect；公开材料无明确 TP 直方图
+
+**已用**: AIBL 常与 ADNI/OASIS-3 联合做 amyloid PET harmonization (Bourgeat 2022)；blood-biomarker 模型外部验证
+
+---
+
+### 7.2 PPMI (Parkinson's Progression Markers Initiative)
+
+**基本信息**
+- 主导: MJFF 资助
+- Descriptors: Marek K et al., *Prog Neurobiol* 95(4):629-635 (2011), [PubMed 21930184](https://pubmed.ncbi.nlm.nih.gov/21930184/); Marek K et al., *Ann Clin Transl Neurol* 5(12):1460-1477 (2018), [PubMed 30564614](https://pubmed.ncbi.nlm.nih.gov/30564614/)
+- 官网: [ppmi-info.org](https://www.ppmi-info.org/)
+
+**规模**
+- PPMI 1.0 (2018): **423 PD + 196 HC + 64 SWEDD** 在 24 sites
+- **PPMI 2.0** (2020+): 目标 **>4,000 volunteers**, 含 **2,000 prodromal**；50 国际 sites / 12 国家
+- prodromal 已: 67 RBD/hyposmia + DAT 缺失 + 445 携带 SNCA/LRRK2/GBA
+- MRI: 几乎全员 baseline T1；rsfMRI/DTI 子集
+- 时间点: baseline + 3/6/9/12 月 + 年度 → 多数 ≥3 TP，相当一部分 ≥5 TP（10 年+ 随访）
+
+**模态**: 3T 多 vendor (Siemens/GE/Philips); T1 必做 + T2/FLAIR/DTI/rsfMRI 子集 + neuromelanin-MRI (PPMI 2.0 加入); **DAT-SPECT 诊断 cohort 全员**; tau PET 小子集
+
+**配对**: **CSF α-syn / Aβ42 / t-tau / p-tau** 全员 baseline；血浆 + biospec 库；WGS 全员 + 风险变异；MoCA/MDS-UPDRS/ESS/RBD；**phenoconversion 时点** (prodromal→PD)
+
+**Access**: 注册 + DUA，1-2 周，免费
+
+**Caveats**: MRI 不是 PPMI 主 modality（影像权重远低于 ADNI）；多 site/vendor 异质大
+
+---
+
+### 7.3 NACC / SCAN (National Alzheimer's Coordinating Center)
+
+**基本信息**
+- Descriptors: Beekly DL et al., *Alzheimer Dis Assoc Disord* 21(3):249-258 (2007), [PubMed 17804958](https://pubmed.ncbi.nlm.nih.gov/17804958/); Besser L et al. (2018) v3 UDS
+- 官网: [naccdata.org](https://naccdata.org/) / 影像门户 [scan.naccdata.org](https://scan.naccdata.org/)
+
+**规模（一手 naccdata.org）**
+- 入组: **54,000+ 总参与者** (20,000+ active)
+- 有 MRI/PET: **15,000+ 参与者**
+- 每人 MRI/PET 扫描数: **1-14 exams per participant**
+- 临床评估: 201,000+ assessments; **median 3 / range 1-20**
+- ≥2 TP: 大多数活跃 cohort
+- ≥3 TP: 约一半受试者
+- ≥5 TP: 长期 ADRC cohort 子集
+
+**时间结构**: UDS 每年访问；影像 opportunistic 不强制；37 ADRC × 25 州 × 30 年（自 1999）
+
+**模态**: "mixed protocol" 1.5T / 3T / 多 vendor (来自 37 ADRC); SCAN 标准化后 T1 必有 + T2/FLAIR/DTI/rsfMRI 子集; PET: amyloid (PiB/Florbetapir/Florbetaben) + tau (Flortaucipir) + FDG 子集
+
+**配对**: UDS neuropsych battery (MMSE/MoCA/CDR/v3 battery); **神经病理 8,300+ autopsies (NACC 独家！)**; APOE / WGS 子集 / ADGC GWAS 联动; CSF/血浆子集
+
+**Access**: **完全免费**; 临床数据 web query 即时 / 影像 SCAN portal 2-6 周 (额外 DUA); 模型权重可发布
+
+**Caveats**: 影像极度异质（37 中心 / 30 年）；不是为 DL 设计的，preprocessing 工作量大；部分早期 scan 仅 1.5T
+
+**已用**: ADNI/NACC/OASIS 联合 brain age; Pathology-validated MRI prediction（NACC 独家神病数据）
+
+---
+
+### 7.4 GENFI (Genetic FTD Initiative)
+
+**基本信息**
+- 主导: 欧洲/加拿大 consortium (UCL coordination)
+- Descriptor: Rohrer JD et al., *Lancet Neurol* 14(3):253-262 (2015), [PubMed 25662776](https://pubmed.ncbi.nlm.nih.gov/25662776/)
+- 2024 扩展: Mirza et al. (2024) *Brain*; Neurology 2022 纵向 cognitive paper
+- 官网: [genfi.org](https://www.genfi.org/)
+
+**规模**
+- GENFI1 (2015): **220 参与者** (118 carriers: 40 sym + 78 asym; 102 non-carriers); 11 sites
+- GENFI 2024: 扩到 **710 个体** (118 sym + 305 presym + 287 non-carriers); 24 sites
+- 另一纵向 paper: **518 participants from 222 families**，最长 7 yr 随访
+- 突变: **C9orf72 / GRN / MAPT**
+
+**时间结构**: baseline + 年度访问 → 18-24 月间隔；2012-01 启动，13 年→部分 5+ TP
+
+**模态**: 3T 多 vendor; T1 volumetric 必做; T2/FLAIR/DTI/rsfMRI 子集; ASL 部分; 近期加 NODDI
+
+**配对**: **CSF Aβ/tau/NfL/GFAP (NfL 是 FTD 早期 biomarker 核心)**; 血浆 NfL 全员; **明确 mutation 状态** (GENFI 核心标签); FTD-specific batteries (CBI-R / Social Cognition / GENFI-Cog); **EYO (estimated years to onset)**
+
+**Access**: 通过 GENFI Steering Committee **项目级申请**，1-3 月（不是 click-and-go）；免费
+
+**Caveats**: 申请门槛比 ADNI 高；样本量虽不大但 **mutation × pre-symptomatic × longitudinal 三重维度**独家
+
+---
+
+### 7.5 DIAN (Dominantly Inherited Alzheimer Network)
+
+**基本信息**
+- 主导: WUSTL
+- Descriptors: Morris JC et al. *Clin Investig* 2(10):975-984 (2012); Moulder KL et al. *Alz Res Ther* 5:48 (2013), [PubMed 24131566](https://pubmed.ncbi.nlm.nih.gov/24131566/); **Bateman RJ et al. *NEJM* 367:795-804 (2012)**, DOI 10.1056/NEJMoa1202753, [PubMed 22784036](https://pubmed.ncbi.nlm.nih.gov/22784036/); McKay & Benzinger *Nat Neurosci* 26(8):1326-1327 (2023), [PMC10897966](https://pmc.ncbi.nlm.nih.gov/articles/PMC10897966/)
+- 2025: 15 yr longitudinal *npj Dementia* (44400-025-00047-7)
+- 官网: [dian.wustl.edu](https://dian.wustl.edu/)
+
+**规模**
+- Bateman 2012 NEJM: 128 participants (40 PSEN1 / 3 PSEN2 / 8 APP pedigrees, ~50% asym carriers)
+- McKay 2023 imaging resource: **533 个体 / 206 ADAD families**
+- DIAN-Obs (2024): **664 累计 / 314 active**; 23 sites / 11 国家 / 7 语言
+- 17 年纵向 cohort，长期参与者 5-10 TP
+
+**时间结构**: 入组 + 每年（sym）/ 每 2-3 年（asym）；自 2008 起 → 17 年；**EYO** (estimated years to symptom onset) — DIAN 独家时间轴
+
+**模态**: 3T 多 site harmonized; T1 (MPRAGE)/T2/FLAIR/DTI/rsfMRI/ASL; PET: **PiB amyloid + FDG + tau (Flortaucipir)** 都有子集; 21 sites 收 PET
+
+**配对**: **CSF Aβ42/40 + t-tau + p-tau181/217 全员纵向** (DIAN 核心); 血浆 Simoa Aβ + p-tau + NfL + GFAP; **每个家族 mutation 已知** + APOE; DIAN-cog composite; **症状发病时点 vs EYO**
+
+**Access**: DIAN Resource Request 项目级审批，2-3 月；免费
+
+**Caveats**: 罕见疾病 N 小但 mutation 标签 + pre-symptomatic 信号纯度极高；申请门槛高慢；跨国 IRB 协调复杂
+
+**已用**: Bateman 2012 NEJM biomarker cascade（**经典 AT(N) 之源**）; Data-driven progression models; DIAN-TU 抗体药 trial 设计 borrow obs cohort
+
+---
+
+### 7.6 HABS (Harvard Aging Brain Study)
+
+**基本信息**
+- 主导: MGH + HMS, Sperling/Johnson lab
+- Descriptor: Dagley A et al., *NeuroImage* 144(Pt B):255-258 (2017), [PMC4592689](https://pmc.ncbi.nlm.nih.gov/articles/PMC4592689/)
+- 官网: [habs.mgh.harvard.edu](https://habs.mgh.harvard.edu/)
+
+**规模**
+- 入组: **284 clinically normal older adults** (baseline)
+- MRI: 284 全员; rsfMRI 子集 260
+- MRI 时间点: **baseline + 36-month follow-up MRI（仅 2 个影像 TP！）**; longitudinal cognitive/clinical 年度
+- 后续 wave 扩展但不在 2017 数字内
+
+**模态**: 全部 **3T** (MGH Martinos 两台 Siemens Tim Trio, 12-ch coil — 极少异质性); T1 (3D MPRAGE)/T2 FLAIR/task fMRI/rsfMRI/DTI/SWI/pulsed ASL; **PiB amyloid (dynamic 0-60min) + FDG + tau Flortaucipir** (Siemens HR+ scanner)
+
+**配对**: 部分 LP→CSF Aβ42/tau/p-tau; 完整 neuropsych battery (**PACC composite** — Sperling 设计); APOE; **纵向认知斜率 → MCI 转化**
+
+**Access**: 在线 data request → DUA → 委员会审批，**~2 周**; 免费
+
+**License**: HABS DUA
+
+**Caveats**: **仅 CN cohort，没 baseline AD**; 影像 TP 数少（设计如此）；单 site → 同质性高但代表性受限
+
+**已用**: A+/A- 预临床 AD 模型; PACC 斜率预测; tau spreading models (Vogel et al.); amyloid PET 标杆
+
+---
+
+### 7.7 NIFD / 4RTNI (Frontotemporal Lobar Degeneration Neuroimaging)
+
+**基本信息**
+- 主导: PI Adam Boxer (UCSF), NIA + NINDS AG032306
+- 入口: [LONI NIFD project](https://ida.loni.usc.edu/home/projectPage.jsp?project=NIFD) + [4RTNI-2 UCSF](https://memory.ucsf.edu/research-trials/research/4rtni-2)
+- 无单一 dataset paper（散见 method/clinical papers）
+
+**规模**
+- NIFD/FTLDNI 计划: 120 FTLD + 120 ctrl
+- 聚合公开样本: **160 participants** — 15 ctrl / 22 bvFTD / 14 nfvPPA / 21 svPPA / 43 CBS / 45 PSP
+- FTLDNI 子集: **136 patients** (70 bvFTD / 36 svPPA / 30 nfvPPA)
+- 4RTNI: 106 (47 Richardson / 51 CBS / 8 nfvPPA); 另一 PSP 子集 59 PSP + 117 HC
+- 时间点: **baseline + 6 个月 + 12 个月** MRI（短随访）; 4RTNI-2 cycle 2 延长
+
+**模态**: 3T 多 vendor; T1 MPRAGE/T2/FLAIR/DTI/rsfMRI; FDG/tau PET 子集
+
+**配对**: 完整 FTD neuropsych (CDR-FTLD/语言/社会认知); CSF Aβ/tau/NfL 子集; MAPT/GRN/C9orf72 检测; PSPRS/CBS-NSI clinical rating
+
+**Access**: LONI IDA + DUA, 1-4 周; 免费
+
+**Caveats**: 比 ADNI 小 10×，但是 **FTD/PSP/CBS 最大的公开纵向影像集**; 短随访（12 月）不适合长期建模; 诊断标签随时间可能更新（CBS↔PSP 重叠）
+
+---
+
+### 7.8 MIRIAD ⭐ 唯一 CC BY 开放 + 每人 12 TP
+
+**基本信息**
+- 主导: UCL Dementia Research Centre
+- Descriptor: Malone IB et al., *NeuroImage* 70:33-36 (2013), DOI 10.1016/j.neuroimage.2012.12.044, [PMC3809512](https://pmc.ncbi.nlm.nih.gov/articles/PMC3809512/)
+- 下载: [miriad.drc.ion.ucl.ac.uk](http://miriad.drc.ion.ucl.ac.uk/)
+
+**规模**
+- 入组: **46 mild-mod AD + 23 controls = 69 total**
+- 总 scan: **708 volumetric T1**
+- 每人 scan: **up to 12 scans** (多数 ≥6 TP)
+- ≥2 TP: 69 (全部); ≥3 TP: 69; ≥5 TP: 绝大多数
+- 25 个不同 interscan interval
+
+**时间结构**: baseline → **2, 6, 14, 26, 38, 52 周 + 18, 24 月**; 加 baseline + 2 周 + 6 周 "back-to-back" 重复扫描（test-retest 信号纯度极高）
+
+**模态**: **1.5T GE Signa 单 scanner 单 radiographer**（几乎零异质性，MIRIAD 核心优势）; **T1 only** (IR-FSPGR)；没 T2/FLAIR/DTI
+
+**配对**: demographics + age + sex + MMSE; **没** CSF / 血浆 / 基因 / PET / outcome labels（纯结构影像数据集）
+
+**Access**: **公开下载注册即可**; 免费; **License: CC BY 3.0 → 可自由 redistribute models** （9 个里最开放）
+
+**Caveats**: 1.5T 单 scanner 20+ 年前数据，现代 DL 模型 transfer 受限; **N 极小 (69)** 不适合 train，**适合 algorithm benchmark / test-retest / 多次扫描方差研究**; 仅 T1
+
+**已用**: Atrophy measurement reproducibility 标杆; BSI (Boundary Shift Integral) 标定; Test-retest 噪声 floor 研究
+
+---
+
+### 7.9 OpenBHB (Open Big Healthy Brains) ⚠️ 不是纵向
+
+**基本信息**
+- 主导: BaobabLab (CEA / NeuroSpin)
+- Descriptor: Dufumier B et al., *NeuroImage* 263:119637 (2022), DOI 10.1016/j.neuroimage.2022.119637, [PubMed 36122684](https://pubmed.ncbi.nlm.nih.gov/36122684/)
+- 门户: [baobablab.github.io/bhb](https://baobablab.github.io/bhb/) / IEEE DataPort
+
+**规模**
+- **>5,000 T1 scans / >60 centers / 10 datasets** (IXI/ABIDE 1&2/CoRR/GSP/Localizer/MPI-Leipzig/NAR/NPC/RBP)
+- 全部 healthy controls; 年龄 6-88
+- **主要 cross-sectional**; CoRR 有 test-retest，但大部分 single-TP
+- ≥2/≥3/≥5 TP: 极少（不是设计目标）
+
+**模态**: T1 only; 1.5T + 3T; 93 centers; 预处理已完成 **VBM (CAT12) + Quasi-Raw + SBM (FreeSurfer)** + QC 已过
+
+**配对**: age + sex + site 标签; 没临床/CSF/基因; **age 作预测目标 + site 作对抗 debias 目标**
+
+**Access**: IEEE DataPort 公开下载（需 IEEE 账号）; 免费; **只发布衍生特征 (VBM/SBM/Quasi-Raw)**，不发布原始 DICOM
+
+**Caveats**: **不是纵向**——不适合 trajectory 建模; 全 healthy 无法直接训 AD/PD 分类器，但是 **brain age FM pretrain 圣杯**; 多 source license heterogeneity
+
+**已用**: Brain age + site-removal benchmark (RAMP challenge); 自监督预训练 (yAware contrastive); site-effect debiasing methodology
+
+---
+
+### Part 7 汇总 Table
+
+| Dataset | Total N | N w/MRI | MRI TP/person | 跨度 | 疾病 | Field | PET | Access | License | 纵向深度 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **AIBL** | 3,045 (2023) | ~600+ | 平均 4-6 (每 18 月) | 19 yr | AD/MCI/HC | 1.5+3T | PiB+Florb+Flut | LONI 1-4w | LONI DUA | ★★★★ |
+| **PPMI** | 4,000+ (2.0) | 大部分 | baseline+12/24/36+ | 14 yr | PD+prodromal | 3T | DAT-SPECT 全员 | DUA 1-2w | PPMI DUA | ★★★★ |
+| **NACC/SCAN** | 54,000+ | **15,000+** | **1-14 exams** | 25+ yr | AD/MCI/HC+ADRD | 1.5+3T | amyloid+tau+FDG | 临床即时 / 影像 2-6w | **free** | ★★★★★ |
+| **GENFI** | 710 (2024) | 几乎全 | 年度 ~5-7 TP | 13 yr | Genetic FTD | 3T | 子集 | 项目 1-3mo | GENFI DSA | ★★★★ |
+| **DIAN** | 664 (314 active) | ~533+ | 年度/双年 | 17 yr | ADAD | 3T | PiB+FDG+tau | 项目 2-3mo | DIAN DSA | ★★★★★ |
+| **HABS** | 284 | 284 | **2 (baseline+36mo MRI only)** | 16 yr | Preclinical AD CN | 3T 单 site | PiB+FDG+tau | DUA ~2w | HABS DUA | ★★ |
+| **NIFD/4RTNI** | ~160-240 | 全员 | baseline+6+12mo | 短 1-2 yr | FTD/PSP/CBS | 3T 多 vendor | FDG/tau 子集 | LONI 1-4w | LONI DUA | ★★ |
+| **MIRIAD** ⭐ | 69 | 69 | **up to 12, 含 2/6 周间隔** | 2 yr | AD+HC | 1.5T 单 scanner | 无 | **公开** | **CC BY 3.0** | ★★★★★ (每人 TP 最多) |
+| **OpenBHB** ⚠️ | 5,000+ | 5,000+ | **主要 cross-sectional** | n/a | Healthy only | 1.5+3T | 无 | IEEE DataPort 公开 | 衍生特征 open | ★ (不纵向) |
+
+### Part 7 关键 takeaway
+
+1. **NACC/SCAN 是规模最大可访问 cohort** (15K+ MRI) 但异质性最重，免费
+2. **DIAN 是 ADAD 数据"金标准"**：mutation × pre-sym × 17 yr 三重独家组合
+3. **GENFI 是 FTD 版的 DIAN**（mutation carriers，pre-symptomatic 信号）
+4. **MIRIAD 是唯一 CC BY 3.0 完全公开 + 每人 12 TP** → benchmark / test-retest 圣杯
+5. **OpenBHB 不纵向**，但是 brain age FM **预训练**圣杯
+6. **HABS/4RTNI/NIFD 的"≥2 TP MRI"数字其实小**——设计就只 2-3 个影像 TP
+7. **AIBL + PPMI 是 ADNI 最佳伴侣**（同样长随访、相似申请门槛）
+8. **"≥5 TP 病人数"精确直方图大部分数据集未公开**——需账号登录 LONI/NACC dashboard 才能查
+
+---
+
+## Part 8: Lifespan / Development / 健康老化 brain MRI 纵向（9 个，非 AD/dementia）
+
+> 与 Part 7 (AD/dementia cohorts) use case 完全不同：normative 轨迹、个体偏差检测、brain age 模型预训练根基。
+
+### 8.1 ABCD Study ⭐⭐⭐⭐⭐ 体量最大
+
+**基本信息**
+- 主导: US NIH (NIDA/NIMH/NIAAA/NICHD) 21 站点联合
+- Casey BJ et al., *Dev Cogn Neurosci* 32:43-54 (2018), DOI 10.1016/j.dcn.2018.03.001
+- 官网: [abcdstudy.org](https://abcdstudy.org) / 数据 [nda.nih.gov/abcd](https://nda.nih.gov/abcd) / [nbdc-datahub.org](https://nbdc-datahub.org)
+
+**规模**
+- 入组: **11,880** (9-10 yo baseline) × 21 sites
+- Release 6.0 (2025): **11,868** 跨 13 events
+- MRI 时间表: baseline / Y2 / Y4 / Y6 / Y8 / Y10（每 2 年）
+- **≥2 MRI TP: ~8,000-9,500**（baseline + 2-yr 完成率 ~80%）
+- **≥3 MRI TP: ~5,000-7,000**（4-year follow-up 入库）
+- 6-year ~75% 受试者完成
+
+**模态**: **3T multi-vendor** (Siemens Prisma / GE 750/750w / Philips Achieva/Ingenia); 3D T1 MPRAGE + 3D T2 SPACE + HARDI dMRI (96 dir, b=500/1000/2000/3000) + 4× rfMRI multiband + 3 tfMRI (MID/SST/N-back); **无 ASL / 无 FLAIR**
+
+**配对**: NIH Toolbox/CANTAB/RAVLT/WISC-V; KSADS-COMP/CBCL; 手机使用 + 社交媒体 + 屏幕 + 睡眠 + 物质使用; **唾液 DNA + WGS subset**; 邻里贫困 + 空气污染 linkage
+
+**Access**: NDA 账户 + DUC (机构签字) → **2-4 周**; 免费; BIDS + minimal-preproc + FreeSurfer derivatives + tabulated CSV
+
+**Caveats**: 多 site/vendor → site/scanner harmonization 关键 (ComBat/CovBat); GE timing offset ~9% (6.0 修复); 青春期 head motion 加剧
+
+**已用**: Owens 2021 PLoS ONE (effect sizes); **Marek 2022 Nature** (reproducible brain-wide associations need thousands); Bethlehem 2022 *Nature* (brain charts — ABCD 核心训练源); Rapuano 2020 PNAS
+
+---
+
+### 8.2 HCP-Aging / AABC
+
+**基本信息**
+- Bookheimer SY et al., *NeuroImage* 185:335-348 (2019); Harms MP et al., *NeuroImage* 183:972-984 (2018)
+- 官网: [humanconnectome.org/study/hcp-lifespan-aging](https://www.humanconnectome.org/study/hcp-lifespan-aging)
+
+**规模**
+- 入组: **1,200+** 健康成人 36-100+ (HCP-A 原始); AABC 扩展 1,500+
+- **AABC Release 2: 1,396 受试者 / 2,878 imaging sessions**
+- **V1: 1,396 / V2: 915 / V3: 471 / V4: 96**
+- **≥2 visits: 915；≥3 visits: 471；≥4 visits: 96**
+- 间隔 ~2-3 yr
+
+**模态**: **3T Siemens Prisma** (4 sites 统一); T1 MPRAGE + T2 SPACE + 高分辨率 hippocampal T2 + HARDI dMRI (b=1500/3000, 92 dir) + 4× rfMRI (multiband 8) + ASL (pCASL) + 部分 7T MRS
+
+**配对**: NIH Toolbox 完整成人电池 + Rey AVLT/Trails/processing speed; NEO-FFI + 抑郁焦虑量表; 血压/握力/血样; **血液 DNA + APOE 基因型**
+
+**Access**: NDA + DUC + HCP open data terms → 自助下载，免费; BIDS-like + HCP minimal pipeline + CIFTI surface
+
+**Caveats**: 健康人口（排除重度精神/神经病史→"supernormal"偏差）; 老人 motion 大; 仅 Siemens Prisma vendor 多样性=0
+
+---
+
+### 8.3 HCP-Development
+
+**基本信息**
+- Somerville LH et al., *NeuroImage* 183:456-468 (2018), DOI 10.1016/j.neuroimage.2018.08.050
+- 官网: [humanconnectome.org/study/hcp-lifespan-development](https://www.humanconnectome.org/study/hcp-lifespan-development)
+
+**规模**
+- 入组: **1,300+** healthy 5-21 yo
+- Lifespan 2.0 release: ~1,305 V1
+- **多 TP**: 5-13 段三波 (baseline + 18mo + 36mo)，14-21 段一次性
+- **当前 release ≥2 visits: ~300-400 受试者**（纵向 wave 仍累积，Lifespan 3.0 才补齐 COVID 影响）
+
+**模态**: **3T Siemens Prisma**; T1/T2 0.8mm iso + HARDI dMRI + rfMRI 4×7min + ASL + tfMRI (emotion/guessing/CARIT)
+
+**配对**: 青春期评定 (PDS/Tanner) + 唾液激素 + NIH Toolbox + Wechsler 缩减 + CBCL; 部分血样 DNA
+
+**Caveats**: 健康青少年；COVID 中断纵向收集；vendor 多样性=0
+
+---
+
+### 8.4 dHCP (developing Human Connectome Project) — 婴儿/胎儿
+
+**基本信息**
+- Edwards AD et al., *Front Neurosci* 16:886772 (2022), DOI 10.3389/fnins.2022.886772
+- Karolis et al., *Imaging Neuroscience* (2024) — fetal release
+- 官网: [developingconnectome.org](http://www.developingconnectome.org/)
+
+**规模**
+- Neonatal: **783 婴儿 / 887 datasets** (583 健康足月儿 + 早产/高危)
+- **≥2 sessions: ~100+ 婴儿**（887-783=104 重复，早产 → term-equivalent 二次扫描）
+- ≥3 sessions: 个位数
+- Fetal release 2024: **275 fetal scans / 255 fetuses** (PMA 20-38 周)
+
+**模态**: **3T Philips Achieva** (neonatal-adapted RF coil); T1 (FSE+MPRAGE)/T2/rfMRI (818 sessions QC pass)/dMRI (758 multi-shell HARDI b=400/1000/2600); 胎儿专用 SS-FSE T2 + fetal rs-fMRI
+
+**配对**: 出生信息 + PMA + Bayley-III 神经发育评估（部分 2yr 随访）; 早产临床参数
+
+**Access**: 注册 + DUA → NDA portal 迁移中; 免费; BIDS + dHCP preprocessed pipelines
+
+**Caveats**: 婴儿头围/对比与成人极不同；**T1/T2 对比反转**（婴儿 myelination 中）；fetal motion 极高；缺乏 GA-matched 大型 control
+
+**已用**: Fenchel et al. *Cereb Cortex* 2020 microstructural cortical profiles; Williams LZJ *Nat Comms* spatial transcriptomic alignment
+
+---
+
+### 8.5 HBCD (HEALthy Brain & Child Development)
+
+**基本信息**
+- 主导: NIH HEAL Initiative + 多 institute 资助
+- Volkow ND et al., *Dev Cogn Neurosci* (2024); Dean DC 3rd et al., DOI 10.1016/j.dcn.2024.101452 (PMID 39341120)
+- 官网: [hbcdstudy.org](https://hbcdstudy.org) / 数据 [nbdc-datahub.org](https://nbdc-datahub.org)
+
+**规模**
+- 入组目标: **~7,500 母婴 dyads** × 27 站点
+- 已入组: **>5,000 家庭** (2025 Q1)
+- HBCD 2.0 release: **>3,500 受试者** baseline + 部分纵向
+- 设计 4 MRI 访问: V2 (0-1mo) / V3 (3-9mo) / V4 (9-15mo) / V6 (18-24mo)
+- 当前 2.0: V2+V3+V4 部分; ≥2 MRI hundreds 量级 (快速增长中)
+- 完整 4-tp 子集 2026+ 才齐
+
+**模态**: **3T harmonized** (Siemens + GE + Philips); T1 MPRAGE/MP2RAGE (婴儿适配) + T2 + dMRI + rs-fMRI (2×7.5min) + MRS (bilateral thalamus); **FIRMM real-time motion monitoring**
+
+**配对**: **产前物质暴露**（opioids/cannabis/alcohol/tobacco）; 母婴 dyad 评估 + HOME + Bayley + ASQ + MacArthur CDI; 母婴血/唾液/毛发/胎盘/毛细血/母乳/尿生物样本; EEG (多 site) + 眼动; 社会决定因素
+
+**Access**: NBDC DataHub 注册 + DUC; 免费; BIDS + Loris-based curation; Annual releases 2025 起
+
+**Caveats**: 婴儿期 MRI 醒着扫，部分时点 dropout 高; 数据非常新 (2025 才公开)，生态系统刚起步; 婴儿头部模板缺乏
+
+---
+
+### 8.6 IBIS (Infant Brain Imaging Study) — Autism Risk
+
+**基本信息**
+- Hazlett HC et al., *Nature* 542:348-351 (2017), DOI 10.1038/nature21369
+- 主导: NIH ACE 5 站点 (UNC, WashU, Penn, UMN, UW Seattle)
+- 官网: [ibis-network.com](https://ibis-network.com/)
+
+**规模**
+- 入组: **>400** baseline (HR-ASD 兄姊 vs LR control)
+- 累计 IBIS-1/EP/2/DS/Infant: **~700-800 受试者**
+- **设计核心: 6mo + 12mo + 24mo 三时点**
+- 完成全部三时点: **~300-400 婴儿**（Hazlett 2017 N=148 HR + ctrl 全部 3-TP）
+- + school-age (7-14) 复扫子集: **~200+**（IBIS-EP）
+- **≥2 TP: ~500; ≥3 TP: ~300-400; ≥4 TP: ~200**
+
+**模态**: **3T Siemens Tim Trio / Prisma** (站点统一); T1 MPRAGE + T2 turbo SE + dMRI (25-65 dir) + rfMRI subset; 婴儿期自然睡眠扫描
+
+**配对**: ADOS/Mullen/Vineland/AOSI; repetitive behavior/social attention/eye tracking; EEG 部分; DNA + proband 家族遗传
+
+**Access**: **NDA Collection** + DUC; 免费
+
+**已用**: **Hazlett 2017 Nature**（婴儿 surface area 扩张预测 ASD 诊断）; **Emerson 2017 Sci Transl Med**（6mo 功能连接组预测 ASD）
+
+---
+
+### 8.7 Cam-CAN (Cambridge Centre for Ageing & Neuroscience)
+
+**基本信息**
+- Shafto MA et al., *BMC Neurology* 14:204 (2014), DOI 10.1186/s12883-014-0204-1
+- Taylor JR et al. data repository, *NeuroImage* 144:262-269 (2017)
+- **Phase 5 Rescan 2025 protocol**: medRxiv 2025.05.06.25327023
+- 官网: [cam-can.mrc-cbu.cam.ac.uk](https://cam-can.mrc-cbu.cam.ac.uk) / 数据 [opendata.mrc-cbu.cam.ac.uk](https://opendata.mrc-cbu.cam.ac.uk/projects/camcan/)
+
+**规模**
+- Stage 1: ~2,700 家访 cognitive baseline
+- **Stage 2 (CC700): ~700** 参与者 (每 10 年 100 人，18-87 yo)，MRI + MEG + cognitive
+- **Stage 3 (CC280): ~280** 子集，3 sessions 额外 fMRI (2012-14)
+- **Phase 4 (Enrichment) + Phase 5 (Rescan, 2025 protocol)**: Stage 2 邀请回扫，**~12 年间隔**
+- 至 Stage 3: **~280 ≥2 MRI sessions**
+- Phase 5 完成 ~300-400 ≥2 structural MRI (12 yr 间隔，纵向 brain ageing 难得！)
+- ≥3 TP: 仅 CC280 子集 ~3 sessions
+
+**模态**: **3T Siemens Tim Trio** (固定 scanner 跨 phase); T1 MPRAGE/T2 SPACE/FLAIR (subset)/dMRI 30 dir b=1000+2000/rfMRI/task fMRI; **MEG (Elekta Neuromag VectorView 306 ch) 配对**
+
+**配对**: 完整 cognitive battery (Cattell fluid intelligence / Wechsler logical memory / Hayling / Stroop / processing speed); 听力/视力/握力/生理; 部分基因型
+
+**Access**: 注册申请表 → 学术 review ~2 周; 免费; NIFTI + BIDS-organized + 原始 MEG fif
+
+**Caveats**: 单站点 Cambridge，**caucasian-heavy**; 只 Siemens Trio; Phase 5 数据 release timeline 未定
+
+**已用**: **Cole JH 2017/2018 brain age prediction**（Cam-CAN 核心训练）; Bethlehem 2022 lifespan charts; Tsvetanov functional connectivity ageing
+
+---
+
+### 8.8 Rotterdam Scan Study
+
+**基本信息**
+- Ikram MA et al., *Eur J Epidemiol* 30:1299-1315 (2015), DOI 10.1007/s10654-015-0105-7
+- Ikram et al., *Eur J Epidemiol* 32:807-850 (2017) 2018 update
+- 官网: [ergo-onderzoek.nl/wp/rotterdam-scan-study](https://www.ergo-onderzoek.nl/wp/rotterdam-scan-study/)
+
+**规模**
+- Rotterdam Study 母 cohort: **14,926** 总入组
+- MRI 子项目: **>5,800 人接受过脑 MRI / ~12,174 MRI scans** (2015)
+- 2024 更新整体 **>10,000 scans / >5,286 people 45+**
+- **≥2 MRI: ~3,500-4,000**（每 3-4 年随访，2005 起）
+- **≥3 MRI: ~1,500-2,000**
+- ≥4 MRI: 数百
+
+**时间结构**: 2005 起 MRI 嵌入核心 Rotterdam Study 访问，**~3-4 年间隔**
+
+**模态**: **1.5T GE Signa Excite** (2005 安装，刻意不大改 → 跨年纵向可比性！); T1 3D (FFE-fast SPGR) + Proton-density + FLAIR + 3D T2*-GRE (微出血) + DTI 25 dir + 2D phase contrast + rs-fMRI (2011+)
+
+**配对**: 心血管 risk (BP/ABI/carotid US/ECG/cIMT); 认知 (MMSE/Letter-Digit/Stroop/Word Learning/verbal fluency); **dementia incidence follow-up (neurologist adjudicated) + stroke + PD**; blood DNA (GWAS + WGS subset) + APOE + metabolomics; 视网膜 imaging + 骨密度 + 肺功能
+
+**Access**: **Bilateral collaboration only**（非 NDA self-serve）— 通过 Rotterdam Study Management Team 提交研究计划 + DTA → board review; 通常 collaboration / co-authorship 安排，**不收 fee 但需协作**
+
+**Caveats**: Access 比 ABCD/HCP/Cam-CAN 严格得多; 1.5T 分辨率低于 3T cohort; 单中心荷兰白人为主; Microbleed/WMH 病变 phenotype 丰富 → 与"健康"边界模糊
+
+**已用**: **Vernooij MW et al. silent infarcts NEJM 2007**; Vinke EJ et al. trajectories of imaging markers *Neurobiol Aging* 2018; Ikram MK genome-wide hippocampal volume *Nat Genetics*
+
+---
+
+### 8.9 Generation R Study
+
+**基本信息**
+- Kooijman MN et al., *Eur J Epidemiol* 31:1243-1264 (2016) cohort update
+- White T et al., *Eur J Epidemiol* 33:99-125 (2018) — second wave neuroimaging
+- 官网: [generationr.nl](https://generationr.nl)
+
+**规模**
+- 母 cohort: **9,778 母亲 / ~9,749 出生 offspring**
+- **MRI Wave 1 (2009-2012): 1,070 个** 6-9 岁孩子
+- **MRI Wave 2 (2013-2015): 4,087 个** 9-11 岁孩子 (4,245 来访)
+- **MRI Wave 3 (~age 13-14)**: 估 3,000+ (invitation list 7,968)
+- **≥2 MRI (wave1∩wave2)**: T1 **640 / DTI 600 / rs-fMRI 525**
+- ≥3 MRI (w1+w2+w3): 数百量级，仍累积
+
+**时间结构**: Wave 1: 6-9 → Wave 2: 9-11 → Wave 3: 13-14 → 后续 → young adulthood
+
+**模态**: **3T GE Discovery MR750** (统一单 scanner，**无 vendor 多样性**); T1 (3D IR-FSPGR) + DTI 35 dir b=900 + rs-fMRI + 部分 task fMRI + ASL (部分 wave 2/3)
+
+**配对**: 母亲孕期 (吸烟/酒/毒/营养/心理); 出生 (体重/孕周/并发症); 儿童 (CBCL/IQ/ADHD scales/Bayley); 脐带血 + 母婴 DNA (GWAS array) + blood/urine/buccal; 家庭 SES + 住房 + **空气污染 linkage**
+
+**Access**: **Generation R Management Team review + MoU**（类似 Rotterdam Study collaboration model，非 NDA self-serve）; 无 fee 需合作; DICOM/NIFTI + derived
+
+**Caveats**: Access 严格非 self-serve; 单中心 Rotterdam，多民族但荷兰主导; 单 vendor; 儿童 motion 大 → wave 1/2 QC pass rate ~80%
+
+---
+
+### Part 8 汇总 Table
+
+| 数据集 | 年龄 | 入组总 | MRI 受 | **≥2 TP** | **≥3 TP** | TP median (max) | 间隔 | Vendor |
+|---|---|---|---|---|---|---|---|---|
+| **ABCD** ⭐⭐⭐⭐⭐ | 9-20+ | 11,880 | ~11,500 | **~8-9.5k** | **~5-7k** | 2-3 (4) | 2 yr | 多 (Siemens/GE/Philips 3T) |
+| **HCP-A/AABC** | 36-100+ | 1,500+ | 1,396 | **915** | **471** | 2 (4) | 2-3 yr | 单 (Siemens Prisma 3T) |
+| **HCP-D** | 5-21 | 1,300+ | ~1,305 | **~300-400** | 少量 pilot | 1-2 (3) | 1.5 yr | 单 |
+| **dHCP** neonatal | 出生 | 783 | 783 | **~100+** | <10 | 1 (3) | 数周 | 单 (Philips 3T) |
+| **dHCP** fetal | PMA 20-38wk | 255 | 255 | ~20 | 0 | 1 (2) | 数周 | 单 |
+| **HBCD** | prenatal-2y | >5,000 | >3,500 (rel 2.0) | hundreds (growing) | 进行中 | 4 planned (4) | 多间隔 | 多 |
+| **IBIS** | 6mo-14y | 700-800 | 700-800 | **~500** | **~300-400** | 3 (4) | 6/12/24mo + school | 单 (Siemens 3T) |
+| **Cam-CAN** | 18-88 | ~2,700 | ~700 (Stage 2) | **~280-400 (Phase 5)** | **~280 (CC280)** | 1-2 (3); Phase 5 +12yr | 1-3 yr + 12 yr | 单 (Siemens Trio 3T) |
+| **Rotterdam Scan** | 45+ | 14,926 | **>5,800** | **~3.5-4k** | **~1.5-2k** | 2 (4+) | 3-4 yr | 单 (GE 1.5T) |
+| **Generation R** | 6-14+ | 9,778 | w1 1,070 / w2 4,087 | **640 T1 / 600 DTI / 525 rsfMRI** | hundreds | 1-2 (3+) | ~2 yr | 单 (GE 3T) |
+
+### Part 8 选型建议（与 AD cohort 完全不同 use case）
+
+| 应用 | 最适合 | 原因 |
+|---|---|---|
+| **婴儿大脑生长 normative** | dHCP + IBIS + HBCD | 0-2 yo 全套，dHCP gold standard preterm |
+| **儿童/青春期纵向轨迹** | **ABCD ≫ Generation R + HCP-D** | ABCD 体量碾压，2-4 TP 已就位 |
+| **健康老化跨年纵向** | **Rotterdam + Cam-CAN Phase 5 + HCP-A/AABC** | Rotterdam 唯一 ≥3 TP × thousands；Cam-CAN Phase 5 = 12 yr 超长间隔 |
+| **跨 vendor / site harmonization 研究** | ABCD, HBCD | 唯二 multi-vendor 3T 且有 harmonization |
+| **brain age / lifespan normative model 训练** | 全部联合 (ABCD + HCP-D/A + Cam-CAN + Rotterdam) → Bethlehem 2022 *Nature* lifespan charts |
+| **早期 autism 检测** | IBIS（唯一）|
+| **fetal/preterm 微结构** | dHCP（唯一 sizeable）|
+| **预训练 + downstream AD 迁移** | ABCD + HCP-A + Cam-CAN + Rotterdam (健康 corpus 上限 ~15,000+ longi MRI sessions) |
+
+### Part 8 Key Caveats
+
+- **Access tier 巨大差异**:
+  - **Self-serve via NDA**: ABCD / HCP-A/D / HBCD / IBIS（申请 2-4 周）
+  - **Bilateral collaboration only**: Rotterdam / Generation R（PI 同意 + 时常 co-authorship；非 NDA）
+  - **专用 portal + DUA**: dHCP / Cam-CAN
+- **Vendor 多样性**: 只有 **ABCD + HBCD**；其余基本单 vendor
+- **真正能跑 ≥3 TP × ≥1000 人健康 cohort 只有 ABCD（青少年）+ Rotterdam Scan（中老年）+ HBCD（出生-2y, 2026+ 满载）**——normative longitudinal trajectory 的金字塔顶
+- **Cam-CAN Phase 5 / HCP-AABC** 提供 **12+ yr 间隔**健康 ageing rescan，远比 ADNI 5-6 yr 长
+- **dHCP + HBCD 新**，分割/atlases 工具链不成熟，**婴儿头模板**是瓶颈
+
+---
+
+## 全部 Parts 完成（1-8 + adni-oasis）
+
+至此 datasets-deep.md 包含：
+- **Part 1** 肺筛 CT (6 datasets)
+- **Part 2** 肿瘤 serial CT (12)
+- **Part 3** 多模态/通用 CT corpora (9)
+- **Part 4** UK Biobank + 体部 MRI / multimodal (10)
+- **Part 5** 2D 纵向 CXR/OCT/Mammo/US/Path (20+)
+- **Part 6** ADNI/OASIS/TADPOLE 指针 → [datasets-adni-oasis.md](datasets-adni-oasis.md)
+- **Part 7** AD/dementia brain MRI 非 ADNI (9: AIBL/PPMI/NACC/GENFI/DIAN/HABS/4RTNI/MIRIAD/OpenBHB)
+- **Part 8** Lifespan/dev/healthy brain MRI (9: ABCD/HCP-A/HCP-D/dHCP/HBCD/IBIS/Cam-CAN/Rotterdam/Gen R)
+
+**总计 ~85 个数据集深度调研完毕**。
