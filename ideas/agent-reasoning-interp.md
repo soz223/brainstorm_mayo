@@ -111,8 +111,53 @@ A 跑通后，把 reasoning 作为 post-training 阶段加进去——比单做 
 - 即使没做过，可能存在的原因：医学 FM 没那么有趣（feature 主要就是"器官 X"），出 figure 但缺深度故事
 - Anthropic 招人窄
 
-### 状态
-⏳ subagent 调研中，回来更新
+### Subagent 调研结果（2026-05-13）
+
+**bad news：18 个月里已 8–10 篇 SAE 医学 FM paper**
+
+| Paper | 时间 | 目标 | 是否威胁 |
+|---|---|---|---|
+| **GeoSAE** (2605.01829) | 2026.05 | **3D Brain MRI FM + SAE** | ⚠️ 最直接竞品 |
+| **SAIL** (2603.23794) | 2026.03 | 2D CT/MRI slice + DINOv3 | 强 |
+| **MedSAE** (2510.26411) | 2025.10 | MedCLIP CXR | 中 |
+| **CXR-LanIC** (2510.21464) | 2025.10 | BiomedCLIP CXR | 中 |
+| **SAE-Rad** (2410.03334) | 2024.10 | CXR + SAE→报告 | 中（最早） |
+| **MAIRA-2 SAE** (2507.12950) | 2025.07 | VLM 文本侧 | 弱 |
+| **Mammo-SAE** (2507.15227) | 2025.07 | Mammo-CLIP | 弱 |
+| **Pathology SAE / CytoSAE** | 2024.07–25.07 | 2D 病理 tile | 弱 |
+
+**结论：之前说"首发"是错的。**
+
+### 但 3D 体素 medical FM 仍有窗口
+
+真正没人做：
+1. Merlin / CT-CLIP / M3FM / RadFM 的 SAE（GeoSAE 只做 brain MRI 自家 FM 且 2D 投影）
+2. 跨 medical FM 的 feature universality 研究
+3. 3D CT FM 的 activation patching（zero）
+4. 3D CT FM steering / Golden Gate 风格演示（zero）
+
+### 难度修正
+
+**中难度**，不是低。三个 rough edge：
+1. 3D ViT activations 内存爆（per-volume 8–15k token），需 streaming cache
+2. Feature collapse 是真问题（GeoSAE 整篇都在解决）
+3. Auto-interp pipeline 不成熟，需 MedGemma + 放射医生 spot check
+
+### 可写 paper 标题（避开 GeoSAE claim）
+
+- "First Sparse Autoencoder Analysis of 3D Volumetric CT Foundation Models"（限定 CT）
+- "Cross-Model Feature Universality in Medical Imaging Foundation Models"（多模型 universality）
+
+### 修订评估
+
+| 之前 | 之后 |
+|---|---|
+| "首发 SAE on medical FM" | ❌ 错，已 8+ paper |
+| 难度低 | 中 |
+| 信号 ★★★ | 维持 ★★★（不是炸场） |
+| Mayo 加成弱 | 维持 |
+
+K 现在更像 GeoSAE 的 **concurrent work**，不是 slam dunk。但 3D CT 窗口真的存在，故事可以讲。
 
 ---
 
