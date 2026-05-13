@@ -38,7 +38,8 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - [Time-to-Event Pretraining 拆解](ideas/time-to-event-pretraining.md)
 
 ### Direction A 深度
-- **Paper proposal v0.1**：[paper-proposal.md](ideas/direction-a/paper-proposal.md)（含 task I/O + 2D-vs-3D rationale）
+- **Paper proposal v0.2** ⭐：[paper-proposal-v0.2.md](ideas/direction-a/paper-proposal-v0.2.md)（含 reasoning post-training 章节 + 一手验证数字 + 升级 venue/keyword）
+- Paper proposal v0.1：[paper-proposal.md](ideas/direction-a/paper-proposal.md)（含 task I/O + 2D-vs-3D rationale）
 - 文献综述：[lit-review.md（英文~75 篇）](ideas/direction-a/lit-review.md) · [中文简版](ideas/direction-a/lit-review-zh.md)
 - 数据集 inventory：[datasets.md（英文~70 个）](ideas/direction-a/datasets.md) · [中文简版](ideas/direction-a/datasets-zh.md)
 - **数据集深度调研**：[datasets-deep.md](ideas/direction-a/datasets-deep.md)（Part 2 肿瘤 + Part 4 UKB/体部 + Part 5 2D + Part 6 ADNI/OASIS 指针；Part 1 肺筛 + Part 3 多模态 CT + 其他 brain MRI 待）
@@ -48,8 +49,8 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 ### Trend 分析（Stage 1–3）
 - [Stage 1A: ML 顶会 trending（~85 篇）](ideas/trends/stage1a-ml-venues.md) · [中文简版](ideas/trends/stage1a-ml-venues-zh.md)
 - [Stage 1B: 医学顶刊 trending（~95 篇）](ideas/trends/stage1b-medical-venues.md) · [中文简版](ideas/trends/stage1b-medical-venues-zh.md)
-- Stage 2: trend 分析（待）
-- Stage 3: trend-based new ideas（待）
+- [Stage 2: trend 分析](ideas/trends/stage2-trend-analysis.md)（cluster 模式 + 谁领导 + 留白 + 时间窗口）
+- [Stage 3: trend-based new ideas](ideas/trends/stage3-new-ideas.md)（推荐 A + Reasoning post-training）
 
 ## 数据 scoping 待办
 
