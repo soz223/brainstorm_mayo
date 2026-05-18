@@ -47,6 +47,7 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - **其他 brain MRI longi**：[datasets-brain-other.md](ideas/direction-a/datasets-brain-other.md)（AIBL/NACC/DIAN/HABS/4RTNI/MIRIAD/GENFI/PPMI/ABCD/HCP-A/HCP-D/dHCP/HBCD/Cam-CAN/Rotterdam/OpenBHB 共 16 个）
 - **NLST 实战指南**：[nlst-practical-guide.md](ideas/direction-a/nlst-practical-guide.md)（11TB 怎么用 + Sybil/Ardila/Liao/M3FM 预处理 pipeline）
 - **Yale-Brain-Mets 实战判断**：[yale-brain-mets-guide.md](ideas/direction-a/yale-brain-mets-guide.md)（43GB 即下，零审批；"mean 8" 是均值陷阱；零标注仅 pretraining）
+- **Preliminary 实验计划** ⭐：[prelim-experiment-plan.md](ideas/direction-a/prelim-experiment-plan.md)（Yale 上跑 IA-MVM+NVP-LS+TPC，W&B 监控，2 周验证 pipeline）
 
 ### Trend 分析（Stage 1–3）
 - [Stage 1A: ML 顶会 trending（~85 篇）](ideas/trends/stage1a-ml-venues.md) · [中文简版](ideas/trends/stage1a-ml-venues-zh.md)
