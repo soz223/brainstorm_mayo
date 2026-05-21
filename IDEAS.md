@@ -35,6 +35,7 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - [二轮 landscape (W/AA/CC/X/K)](ideas/landscape-survey-round2.md)
 - [Agent / Reasoning / Interp 副线](ideas/agent-reasoning-interp.md)
 - [Method 维度调研](ideas/methods-survey.md)
+- [Round 3：5 块新领域发散](ideas/brainstorm-round3-territories.md)（生成式/bio-omics/信号/手术/因果 + 跨领域合成 N1-N4）
 - [Time-to-Event Pretraining 拆解](ideas/time-to-event-pretraining.md)
 
 ### Direction A 深度
