@@ -49,6 +49,8 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - **Yale-Brain-Mets 实战判断**：[yale-brain-mets-guide.md](ideas/direction-a/yale-brain-mets-guide.md)（43GB 即下，零审批；"mean 8" 是均值陷阱；零标注仅 pretraining）
 - **Preliminary 实验计划** ⭐：[prelim-experiment-plan.md](ideas/direction-a/prelim-experiment-plan.md)（Yale 上跑 IA-MVM+NVP-LS+TPC，W&B 监控，2 周验证 pipeline）
 - **环境 + W&B setup**：[setup.md](ideas/direction-a/setup.md)（conda env + wandb 安全登录 + register_run.py 注册脚本；key 不入 repo）
+- **Agent follow-up 方向**：[agent-followup.md](ideas/direction-a/agent-followup.md)（8 子方向留白排名；推荐"纵向监控 agent + RL 决策"；⚠️ 知识库调研未联网核实）
+- **Agent A/B 辩论（10 来回）**：[agent-debate.md](ideas/direction-a/agent-debate.md)（终局：agent 不作独立主线，降为 TimeFM-3D 的 acquisition-aware 最小切片，3-4 周 1 图 1 表）
 
 ### Trend 分析（Stage 1–3）
 - [Stage 1A: ML 顶会 trending（~85 篇）](ideas/trends/stage1a-ml-venues.md) · [中文简版](ideas/trends/stage1a-ml-venues-zh.md)
