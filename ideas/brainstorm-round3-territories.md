@@ -134,8 +134,10 @@
 **N1. Universal Multi-Stream Patient Trajectory FM**（领域 1+3 交叉）
 不是纵向 3D 影像 FM，是**纵向"一切"FM**——一个病人 = 时间轴上的异步多流（3D 影像 timepoint + ECG 段 + wearable 流 + EHR 事件），全部带绝对时间戳，masked-modality + masked-time 双 SSL。一篇 paper 同时覆盖影像 FM 社区 + 信号 FM 社区 + EHR FM 社区。**比 TimeFM-3D 大一圈，求职面最宽**。
 
-**N2. Generative-as-Representation 3D 医学 FM**（领域 1，真新范式）
-Marigold-Med：训一个 3D 医学 diffusion，**用它的中间表征作 backbone**（不是用来合成）。和 TimeFM-3D 的 contrastive/MAE 范式正交——**这是真不一样的方向**，医学完全空白，标注需求低。
+**N2. Generative-as-Representation 3D 医学 FM**（领域 1）
+Marigold-Med：训一个 3D 医学 diffusion，**用它的中间表征作 backbone**（不是用来合成）。和 TimeFM-3D 的 contrastive/MAE 范式正交。
+⚠️ **核实更正（2026-05-21）**：原写"医学完全空白"是**错的**。实际**半空**——核心范式（frozen 3D 医学 diffusion 当 backbone 做感知）已被 **Li et al. "Medical Semantic Segmentation with Diffusion Pretrain"（arXiv 2501.19265, 2025-01）** 占据（frozen diffusion → 3D CT 器官分割）；DiffuGTS (CVPR 2025)、LDAE (2504.08635) 相邻。**仅剩**"系统 vs DINOv2/MAE head-to-head + 扩分类/检索多任务 + CT/MRI 多模态"没人做。
+→ N2 降级：不是"新范式"，是"差异化于 2501.19265 的 empirical study"，MICCAI 量级、modest，**非 flagship**。价值主要在"作 TimeFM-3D 评测基建的探针"。
 
 **N3. Cross-Modal Future Forecasting FM**（领域 2+3 交叉）
 agent 反复提"从 modality X 现在预测 modality Y 未来"——信号→未来影像、影像→omics。统一成一个 **cross-modal forecasting FM**：给定任意一种当前模态，预测任意另一种模态在未来时间点的状态。
