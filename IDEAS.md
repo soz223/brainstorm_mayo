@@ -36,6 +36,7 @@ Q (Radiology Agent, 红海) · I (Reasoning FM, 评测烂账) · R (Trial Matchi
 - [Agent / Reasoning / Interp 副线](ideas/agent-reasoning-interp.md)
 - [Method 维度调研](ideas/methods-survey.md)
 - [Round 3：5 块新领域发散](ideas/brainstorm-round3-territories.md)（生成式/bio-omics/信号/手术/因果 + 跨领域合成 N1-N4）
+- [VLLM with missing data 深度调研](ideas/missing-data-vllm-survey.md)（6 子角度；收敛留白 = MNAR/informative-missingness in FM era；推荐 Informative-Missingness VLLM，合并老师 causal + missing-data 两方向）
 - [Time-to-Event Pretraining 拆解](ideas/time-to-event-pretraining.md)
 
 ### Direction A 深度
