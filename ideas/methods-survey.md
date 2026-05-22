@@ -106,7 +106,9 @@
 
 ## M8. Diffusion-as-FM (Marigold for medical) {#m8}
 
-**verdict**：light tapped，3D medical Marigold 风格空白。
+> ⚠️ **更正（2026-05-22）**：原 verdict"3D medical Marigold 风格空白"**已被推翻**。Round 3 的 N2 深核实发现核心范式（frozen 3D 医学 diffusion 当 backbone 做感知）已被 **Li et al. 2501.19265 (2025-01)** 占据，**半空非空白**。M8 = N2，已**降级**：不是新范式，是"差异化于 2501.19265 的 empirical study"，MICCAI 量级、modest，**只配作 TimeFM-3D 评测基建的探针**，非独立 flagship。详见 [brainstorm-round3-territories.md](brainstorm-round3-territories.md) 的 N2 条。下文为原始调研记录，保留备查。
+
+**verdict（原始，已过时）**：light tapped，3D medical Marigold 风格空白。
 
 **done**：
 - 3D medical diffusion **generator**：多（MAISI, 3D-MedDiffusion, Med-DDPM, MedDiff-FM）

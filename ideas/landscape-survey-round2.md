@@ -26,9 +26,11 @@
 
 ---
 
-## AA. Hallucination Detection / Safety Gate（**升级为强候选**）
+## AA. Hallucination Detection / Safety Gate（~~升级为强候选~~ → **已搁置 2026-05-22**）
 
-**verdict**：方法论活跃增长，但**零端到端 runtime gating**。FDA Jan 2025 SaMD 草案明文需要 hallucination + drift —— 监管驱动需求。
+> ⚠️ **更正（2026-05-22）**：AA **已搁置**。理由：用户兴趣过滤器明确为 **brain（脑驱动）+ multimodal**，AA（runtime 幻觉 gate / 安全监管）偏工程化、偏 NLP-safety 圈，**不在该兴趣交集内**，用户也判定"偏"。AA 的技术留白（零端到端 runtime gating）依然成立、Mayo draft+edited 配对语料依然独占——若日后做安全方向可复活，但**不作主线**。下文为原始调研记录。
+
+**verdict（原始）**：方法论活跃增长，但**零端到端 runtime gating**。FDA Jan 2025 SaMD 草案明文需要 hallucination + drift —— 监管驱动需求。
 
 **closest works**：
 - RadFlag (Rajpurkar 2024, 2411.00299) —— 温度采样 + LLM judge
