@@ -4,7 +4,7 @@
 > 工作流：本文件 = deck 计划（逐页）。确认后用 scientific-slides skill 的 `generate_slide_image.py` 逐页生成 PNG，再 `slides_to_pdf.py` 合成 PDF。
 >
 > **统一格式目标（每条 prompt 都带）**：deep navy background (#0d1b2a), white text, cyan accent (#4cc9f0), warm-amber highlight (#ffb703), clean sans-serif, generous white space, minimal, no decorative clutter, academic.
-> **作者署名**：Songling Zhu（默认 K-Dense → 改成用户名）。
+> **作者署名**：Songlin Zhao。
 >
 > 图例：[PHOTO/FIG] = 需附外部真实图片；[SCHEMATIC] = 需画方框+箭头示意图（generate_schematic.py 或 slide prompt 内画）。
 
@@ -26,7 +26,7 @@
 ## Slide 1 — Title
 - **Title**: Longitudinal & Generative Foundation Models for 3D Medical Imaging
 - **Subtitle**: A Research-Direction Survey & Proposal
-- **Author**: Songling Zhu · Advisor meeting · May 22, 2026
+- **Author**: Songlin Zhao · Advisor meeting · May 22, 2026
 - **Visual**: [SCHEMATIC] 背景淡淡一条时间轴上 3 个 3D 脑/胸 volume 缩影，左→右，箭头连接。subtle，不抢标题。
 - 备注：开场一句——"老师给了 3 个方向，我把它们各自调研到底，今天汇报哪个能做、哪个卡住。"
 
@@ -335,22 +335,19 @@
 
 ---
 
-## 待办 / 阻塞
+## 状态：已完成
 
-- [ ] **API key**：`generate_slide_image.py` 用 Nano Banana Pro，需 `OPENROUTER_API_KEY`，当前未设置。等用户提供（即用户说的"我会给你一个工具"）。
-- [ ] **BioViL-T Figure 1**：用户已贴图，需存为 `figures/biovilt-fig1.png`（Slide 10 要 `--attach`）。
-- [ ] **Slide 4 纵向影像图**：需找一张公开纵向 CT/MRI 示例图。
-- [ ] **Slide 26 Marigold 图**：可选，找公开图或改用纯 schematic。
-- [ ] 确认作者署名 = Songling Zhu。
-- [ ] 确认配色方案（当前定 deep navy + cyan + amber）。
+- [x] 作者署名 = Songlin Zhao
+- [x] 配色 = deep navy + cyan + amber
+- [x] BioViL-T Figure 1 → `figures/biovilt-fig1.png`，嵌入 Slide 10
+- [x] Slide 4 / Slide 26：用原生 schematic（未用外部真实影像图）
+- [x] **改用 pptxgenjs 构建可编辑 .pptx**（不是图片deck）——所有文字/方框/箭头都是原生 PowerPoint 对象，可编辑
+- [x] 视觉 QA：subagent 逐页查 + 修了 10 类问题（callout 压内容、箭头穿框、右边出血、emoji 乱码等）
 
-## 生成流程（确认后执行）
+## 交付物
 
-```bash
-export OPENROUTER_API_KEY='<key>'
-# 逐页生成，每页 --attach 上一页保持风格统一
-python generate_slide_image.py "<prompt>" -o slides/01_title.png
-python generate_slide_image.py "<prompt>" -o slides/02_agenda.png --attach slides/01_title.png
-# ... 33 页
-python slides_to_pdf.py slides/*.png -o presentation-2026-05-22.pdf
-```
+- `build_deck.js` —— pptxgenjs 构建脚本（改内容/配色直接改这里，`node build_deck.js` 重新生成）
+- `presentation-2026-05-22.pptx` —— 可编辑 PowerPoint，33 页
+- `presentation-2026-05-22.pdf` —— PDF 版（LibreOffice 转）
+
+重新生成：`node build_deck.js && soffice --headless --convert-to pdf presentation-2026-05-22.pptx`
