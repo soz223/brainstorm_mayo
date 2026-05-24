@@ -1,0 +1,43 @@
+flowchart LR
+    subgraph input["Patient sequence (irregular Δt)"]
+        v0["V(t0)"]
+        v1["V(t1)<br/>Δt1 = t1 − t0"]
+        v2["V(t2)<br/>Δt2 = t2 − t1"]
+        vn["V(tn)<br/>Δtn"]
+    end
+
+    subgraph enc["Per-volume 3D encoder (shared)"]
+        e0["SwinUNETR<br/>← CT-FM init"]
+        e1["SwinUNETR"]
+        e2["SwinUNETR"]
+        en["SwinUNETR"]
+    end
+
+    subgraph pos["Continuous-time encoding"]
+        f0["Fourier(0) + mod-emb"]
+        f1["Fourier(Δt1) + mod-emb"]
+        f2["Fourier(Δt2) + mod-emb"]
+        fn["Fourier(Δtn) + mod-emb"]
+    end
+
+    subgraph tt["Δt-aware Temporal Transformer"]
+        attn["6× layers<br/>attention biased by Δt"]
+    end
+
+    subgraph heads["SSL objective heads"]
+        h1["IA-MVM<br/>voxel reconstruction<br/>conditioned on Δt"]
+        h2["NVP-LS<br/>latent next-volume<br/>prediction"]
+        h3["CMTC / TPC<br/>cross-modal / temporal<br/>contrast"]
+    end
+
+    out["trajectory representation<br/>z(t0..tn)"]
+
+    v0 --> e0 --> f0 --> attn
+    v1 --> e1 --> f1 --> attn
+    v2 --> e2 --> f2 --> attn
+    vn --> en --> fn --> attn
+
+    attn --> out
+    out --> h1
+    out --> h2
+    out --> h3

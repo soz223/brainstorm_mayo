@@ -1,0 +1,39 @@
+flowchart LR
+    subgraph cohorts["Longitudinal cohorts (~30K patients)"]
+        nlst["NLST<br/>lung CT, 3 yearly"]
+        adni["ADNI / OASIS-3 / AIBL<br/>brain MRI + PET"]
+        nacc["NACC-SCAN<br/>brain MRI"]
+        yale["Yale-Brain-Mets / LUMIERE<br/>glioma MRI"]
+        onco["Anti-PD-1 / HNSCC<br/>oncology CT/PET"]
+    end
+
+    subgraph curation["Curation (this project, released)"]
+        dcm["DICOM → NIfTI<br/>dcm2niix"]
+        norm["per-modality normalization<br/>HU window | z-score | SUV"]
+        reg["cross-Δt rigid registration<br/>ANTs"]
+        man["manifest<br/>patient × Δt × modality × region"]
+    end
+
+    subgraph train["Pretraining on ACCESS"]
+        enc["per-volume 3D encoder<br/>SwinUNETR ← CT-FM init"]
+        tt["Δt-aware<br/>Temporal Transformer"]
+        ssl["3 SSL losses<br/>IA-MVM · NVP-LS · CMTC/TPC"]
+    end
+
+    subgraph eval["Downstream evaluation"]
+        ad["AD conversion<br/>ADNI"]
+        prog["glioma progression<br/>BTP / LUMIERE"]
+        lung["lung cancer risk<br/>NLST vs Sybil"]
+        rx["RECIST response<br/>Anti-PD-1 / HNSCC"]
+        tte["time-to-event<br/>mortality (C-index)"]
+    end
+
+    subgraph release["Released artifacts"]
+        wts["pretrained weights<br/>HuggingFace"]
+        code["code + Apptainer images<br/>GitHub BSD-3"]
+        sch["manifest schema<br/>BIDS-style"]
+    end
+
+    cohorts --> curation --> train --> eval
+    train --> release
+    eval --> release
